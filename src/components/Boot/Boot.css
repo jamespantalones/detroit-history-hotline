@@ -1,0 +1,44 @@
+.List {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.3);
+  font-family: 'IBM Plex Mono';
+}
+
+.List.full {
+  left: 0;
+  right: 0;
+  width: auto;
+}
+
+.List ul {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 12px;
+  list-style-type: none;
+  padding: 100px 0;
+  opacity: 1;
+}
+
+.List ul.out {
+  opacity: 0;
+  transition: all 1s linear;
+  transform: translateY(-100%);
+}
+
+.CallNow {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 12px;
+}
+.CallNow.active {
+  opacity: 1;
+}

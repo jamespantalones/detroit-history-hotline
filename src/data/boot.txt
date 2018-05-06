@@ -1,0 +1,26 @@
+Establishing Connection...
+RBMA Interface [Version 6.1.76018]
+Copyright <c> 2018 Red Bull Music Academy.
+Interface Boot Manager
+----------------------
+...
+...
+Connected to 192.168.1.129...
+----------------------
+Loading... Terrence Parker
+Loading... Frank Lloyd Wright
+Loading... Carl Craig
+Loading... Juan Atkins
+Loading... Tito Puente
+Loading... Sarah Michelle Geller
+Loading... Michael Bay
+Loading... Dracula
+----------------------
+Enable VGA
+Successfully scanned all installations
+----------------------
+Establishing Phone Line....
+...
+...
+Phone Line Established
+----------------------

@@ -1,0 +1,51 @@
+.CallTable {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  opacity: 0;
+  font-family: 'IBM Plex Mono';
+  pointer-events: none;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CallTable.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.CallTable table {
+  padding: 20px;
+  width: calc(100% - 40px);
+  margin: 20px;
+  text-align: left;
+  border-spacing: 0 10px;
+  border-collapse: separate;
+  font-size: 16px;
+  transform: skewX(-2deg);
+}
+
+.CallTable th {
+  border-bottom: 1px dashed white;
+  border-top: 1px dashed white;
+  padding: 10px;
+}
+
+.CallTable td {
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.CallTable tr:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
+  cursor: pointer;
+}
+
+.CallTable a {
+  color: white;
+}

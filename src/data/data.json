@@ -1,0 +1,57 @@
+{
+  "calls": [{
+      "id": 0,
+      "name": "Terrence Parker",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "terrence_parker_01",
+      "slug": "terrence_parker",
+      "text": "Just some basic text about Terrence Parker"
+    },
+    {
+      "id": 1,
+      "name": "Juan Atkins",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "juan_atkins",
+      "slug": "juan_atkins",
+      "text": "Just some basic text about Terrence Parker"
+    },
+    {
+      "id": 2,
+      "name": "Carl Craig",
+      "audio": "some file",
+      "hasCalled": true,
+      "image": "carl_craig",
+      "slug": "carl_craig",
+      "text": "Just some basic text about Terrence Parker"
+    },
+    {
+      "id": 3,
+      "name": "Moodyman",
+      "audio": "some file",
+      "hasCalled": true,
+      "image": "moodyman",
+      "slug": "moodyman",
+      "text": "Just some basic text about Terrence Parker"
+    },
+    {
+      "id": 4,
+      "name": "Mike Banks",
+      "audio": "some file",
+      "hasCalled": true,
+      "image": "mike_banks",
+      "slug": "mike_banks",
+      "text": "Just some basic text about Terrence Parker"
+    },
+    {
+      "id": 5,
+      "name": "Todd Osborn",
+      "audio": "some file",
+      "hasCalled": true,
+      "image": "todd_osborn",
+      "slug": "todd_osborn",
+      "text": "Just some basic text about Terrence Parker"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 .marquee__wrapper {
-  height: 100px;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -26,5 +26,4 @@
 .marquee__inner .marquee p {
   display: inline-block;
   margin: 0 20px;
-  font-size: 2rem;
 }
