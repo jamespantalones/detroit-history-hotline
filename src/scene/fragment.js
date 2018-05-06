@@ -20,9 +20,8 @@ const fragment = `
 
     float brightness = 0.5;
     col *= brightness + 0.5 * 16.0 * uv.x * uv.y * (1.0 - uv.x) * (uv.y);
-    // scanlines (add smoothstep)
     
-    
+  
     float s = step(sin(u_time / 8.0), 0.0);
 
     float alt = 10.0 * u_time + uv.y * s * 100.0;
@@ -34,12 +33,12 @@ const fragment = `
     col *= 0.9 + 0.1 * sin(alt);    
     col *= 0.99 + 0.01 * sin(110.0 * u_time);
 
+    // offset colors a bit
     float green = col.g;
-
     col.g = col.b * 1.5;
     col.b = green;
 
-    gl_FragColor = vec4(col,1.0);
+    gl_FragColor = vec4(col, 1.0);
   }
 `;
 

@@ -53,8 +53,8 @@
   left: 0;
   right: 0;
   height: 40px;
-  background: blue;
-  color: yellow;
+  background: yellow;
+  color: black;
   z-index: 9;
 }
 

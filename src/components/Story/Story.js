@@ -71,7 +71,9 @@ export default class Story extends Component {
   }
 
   getMetaData = () => {
-    this.setState({ duration: this.audio.duration() });
+    this.setState({
+      duration: this.audio.duration()
+    });
     this.audio.play();
   };
 
@@ -89,7 +91,6 @@ export default class Story extends Component {
   };
 
   handleChange = ev => {
-    console.log(ev.target.value);
     this.audio.seek(ev.target.value);
   };
 
@@ -97,7 +98,9 @@ export default class Story extends Component {
     return (
       <div className="Story">
         <Link to="/">
-          <div className="Story__exit">{'<'} Return</div>
+          <div className="Story__exit">
+            {'<'} Return / {this.state.story.name}
+          </div>
         </Link>
         <div
           className="Story__body"
@@ -113,9 +116,12 @@ export default class Story extends Component {
             onChange={this.handleChange}
           />
           <p>
-            {this.state.currentTime.toFixed(2)}s / {this.state.duration}s
-          </p>
-        </div>
+            {' '}
+            {this.state.currentTime.toFixed(2)}
+            s / {this.state.duration}
+            s{' '}
+          </p>{' '}
+        </div>{' '}
       </div>
     );
   }
