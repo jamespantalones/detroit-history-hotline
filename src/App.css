@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'Authentic';
+  src: url('./fonts/AUTHENTIC-Sans.woff2') format('woff2'),
+    url('./fonts/AUTHENTIC-Sans.woff') format('woff');
+}
+
+.App {
+  background: black;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  color: white;
+  font-family: 'Authentic', Helvetica, sans-serif;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+}
+
+.App h1,
+.App h2 {
+  font-weight: normal;
+  letter-spacing: 0.05rem;
+  margin: 0;
+}
+
+.App__marquee {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: black;
+  height: 100px;
+  right: 0;
+}
+
+.App__marquee p {
+  margin: 0 20px;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+.App__marquee_top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: black;
+  z-index: 9;
+}
+
+.App__marquee_top p {
+  margin: 0 20px;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+.Phones {
+  position: absolute;
+  top: 0%;
+  left: -10%;
+  width: 50%;
+  height: 100%;
+  z-index: 9;
+}
+
+.Phones img {
+  width: 100%;
+  height: auto;
+}
