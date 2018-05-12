@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "date-fns": "^1.29.0",
     "howler": "^2.0.10",
     "localforage": "^1.7.1",
     "marked": "^0.3.19",

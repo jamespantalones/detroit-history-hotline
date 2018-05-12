@@ -1,0 +1,62 @@
+.Stats {
+  text-transform: uppercase;
+  position: relative;
+  width: calc(100% - 40px);
+  z-index: 9;
+  margin: 10px 20px;
+}
+
+.Stats__flex {
+  display: flex;
+  align-item: center;
+  justify-content: space-between;
+}
+
+.Stats__col {
+  width: 50%;
+  padding: 5px;
+}
+
+.Stats p.Stats__hed {
+  color: yellow;
+}
+
+.Stats a {
+  color: white;
+  text-decoration: none;
+}
+
+.Stats h1 {
+  font-size: 22px;
+  background: black;
+  padding: 5px;
+}
+
+.Stats p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.Stats .y {
+  color: yellow;
+}
+
+.Stats .t {
+  color: teal;
+}
+
+.Stats__call {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: sans-serif;
+  text-align: right;
+  text-shadow: 0 4px 2px black;
+}
+
+.Stats__call h1 {
+  background: none;
+
+  font-size: 48px;
+  font-style: italic;
+}

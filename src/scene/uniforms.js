@@ -1,6 +1,4 @@
-import {
-  Vector2
-} from 'three';
+import { Vector2 } from 'three';
 
 const uniforms = {
   u_time: {
@@ -14,6 +12,10 @@ const uniforms = {
   u_texture: {
     type: 't',
     value: null
+  },
+  u_flash: {
+    type: '1f',
+    value: 0.0
   }
 };
 

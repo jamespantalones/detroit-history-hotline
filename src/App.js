@@ -1,15 +1,27 @@
+//-----------------------------------------
+//
+// Main App
+//
+//-----------------------------------------
+
 import React, { Component, Fragment } from 'react';
 import { Howl } from 'howler';
 import classNames from 'classnames';
+import localForage from 'localforage';
 import { Route, withRouter } from 'react-router-dom';
+
+import Nav from './components/Nav/Nav';
 import Marquee from './components/Marquee/Marquee';
 import Boot from './components/Boot/Boot';
 import Canvas from './scene/Canvas';
 import Story from './components/Story/Story';
-
-import './App.css';
+import Title from './components/Title/Title';
+import Dashboard from './components/Dashboard/Dashboard';
+import Radio from './components/Dashboard/Radio/Radio';
+import Stats from './components/Dashboard/Stats/Stats';
 
 import data from './data/data.json';
+import titleText from './data/title.txt';
 import bootText from './data/boot.txt';
 import marqueeText from './data/marquee.txt';
 import topText from './data/top.txt';
@@ -17,7 +29,8 @@ import phones from './images/phones.png';
 import bgAudioSrc from './audio/detroit_groove.mp3';
 import modemSrc from './audio/modem.wav';
 import dialToneSrc from './audio/dialtone.mp3';
-import CallTable from './components/CallTable/CallTable';
+
+import './App.css';
 
 //-----------------------------------------
 // Main
@@ -34,8 +47,11 @@ class App extends Component {
       data: {
         calls: []
       },
+      activeStory: null,
       bootFinished: false,
-      backgroundLoaded: false
+      backgroundLoaded: false,
+      title: '',
+      lastVisit: ''
     };
     this.c = null;
     this.canvas = null;
@@ -47,33 +63,46 @@ class App extends Component {
     this.fetchMarquees();
     this.setAudio();
     this.canvas = new Canvas(this.c, this.backgroundLoadedCallback);
+
+    this.setVisit();
   }
 
-  componentDidUpdate(oldProps, oldState) {
+  componentDidUpdate(oldProps) {
     const { pathname } = this.props.location;
-
-    if (pathname !== oldProps.location.pathname) {
-      if (pathname === '/') {
-        this.bgAudio.stop();
-        this.bgAudio.play();
-      } else {
-        this.bgAudio.stop();
-        this.modemAudio.stop();
-      }
+    console.log(pathname, oldProps.pathname);
+    if (oldProps.location.pathname !== pathname && pathname === '/') {
+      this.setState({
+        activeStory: null
+      });
     }
-    if (
-      oldState.bootFinished !== this.state.bootFinished &&
-      this.state.bootFinished === true
-    ) {
-      //play dial tone
-      console.log('botted');
+  }
+
+  // flag visit for next time
+  async setVisit() {
+    try {
+      await localForage.setItem('ds_last_visit', new Date());
+    } catch (err) {
+      console.error('Error setting last visit in localstorage', err);
     }
   }
 
   // Get main site data
-  fetchSiteData() {
+  async fetchSiteData() {
+    let val = '';
+    const res = await fetch(titleText);
+    const text = await res.text();
+
+    //see if there was a last visit
+    try {
+      val = await localForage.getItem('ds_last_visit');
+    } catch (err) {
+      console.error('Error fetching last visit');
+    }
+
     this.setState({
-      data
+      data,
+      title: text,
+      lastVisit: val
     });
   }
 
@@ -94,28 +123,7 @@ class App extends Component {
   //-----------------------------------------
   // Handle main audio setup
   //
-  setAudio() {
-    this.modemAudio = new Howl({
-      src: [modemSrc],
-      onend: () => {
-        if (this.bgAudio) {
-          if (this.props.location.pathname === '/') {
-            this.bgAudio.play();
-          }
-        }
-      },
-      volume: 0.2
-    });
-
-    this.bgAudio = new Howl({
-      src: [bgAudioSrc],
-      volume: 0.2
-    });
-
-    if (this.props.location.pathname === '/') {
-      this.modemAudio.play();
-    }
-  }
+  setAudio() {}
 
   //-----------------------------------------
   // Main BG images loaded
@@ -145,10 +153,22 @@ class App extends Component {
   };
 
   swapTexture = item => {
-    console.log('ITEM', item);
     if (this.canvas) {
       this.canvas.swapTexture(item.image);
     }
+  };
+
+  setFlash = () => {
+    console.log('FHAS');
+    if (this.canvas) {
+      this.canvas.flashTexture();
+    }
+  };
+
+  setGlobalActiveStory = story => {
+    this.setState({
+      activeStory: story
+    });
   };
 
   //-----------------------------------------
@@ -162,12 +182,15 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="App__marquee_top">
-          <Marquee text={this.state.topText} />{' '}
-        </div>
+        <Nav />
+        {/*BACKGROUND CANVAS */}
         <div className={cx}>
           <div ref={c => (this.c = c)} />{' '}
         </div>
+        <Stats
+          lastVisit={this.state.lastVisit}
+          activeStory={this.state.activeStory}
+        />
         <Route
           exact
           path="/"
@@ -179,11 +202,14 @@ class App extends Component {
                   onFinishedBoot={this.onFinishedBoot}
                   bootFinished={this.state.bootFinished}
                 />
-                <CallTable
-                  active={this.state.bootFinished}
-                  calls={this.state.data.calls}
+
+                <Dashboard
+                  bootFinished={this.state.bootFinished}
+                  data={this.state.data}
                   handleMouseEnter={this.handleMouseEnter}
-                />{' '}
+                  lastVisit={this.state.lastVisit}
+                  setFlash={this.setFlash}
+                />
               </Fragment>
             );
           }}
@@ -191,12 +217,19 @@ class App extends Component {
         <Route
           path="/stories/:person"
           render={props => {
-            return <Story {...props} swapTexture={this.swapTexture} />;
+            return (
+              <Story
+                {...props}
+                swapTexture={this.swapTexture}
+                setFlash={this.setFlash}
+                setGlobalActiveStory={this.setGlobalActiveStory}
+              />
+            );
           }}
         />
         <div className="App__marquee">
-          <Marquee text={this.state.marqueeText} />{' '}
-        </div>{' '}
+          <Marquee text={this.state.marqueeText} />
+        </div>
       </div>
     );
   }

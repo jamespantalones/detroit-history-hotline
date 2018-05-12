@@ -5,7 +5,6 @@
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.3);
-  font-family: 'IBM Plex Mono';
 }
 
 .List.full {
@@ -22,6 +21,7 @@
   list-style-type: none;
   padding: 100px 0;
   opacity: 1;
+  margin-left: 20px;
 }
 
 .List ul.out {

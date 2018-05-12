@@ -1,0 +1,74 @@
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.Radio {
+  width: 100%;
+  text-transform: uppercase;
+  position: relative;
+  margin-top: 20px;
+}
+
+.Radio h1 {
+  font-size: 14px;
+  background: black;
+  padding: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.Radio__init {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: none;
+}
+
+.Radio__init.active {
+  opacity: 1;
+  animation: blink 0.25s steps(1) infinite;
+}
+
+.Radio__init p {
+  font-size: 14px;
+}
+
+.Radio__overlay {
+  background: yellow;
+  lpointer-events: none;
+  z-index: 99;
+  position: absolute;
+  width: 100%;
+  height: 140px;
+  mix-blend-mode: darken;
+  padding: 10px 0;
+  display: none;
+}
+
+.Radio iframe {
+  width: 100%;
+  padding: 10px 0;
+  height: 140px;
+  transform: scaleY(0);
+  transition: transform 0.2s linear;
+  -webkit-filter: grayscale(100%) contrast(200%) saturate(200%);
+}
+
+.Radio iframe.loaded {
+  transform: scaleY(1);
+}

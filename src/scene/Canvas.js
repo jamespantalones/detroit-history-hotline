@@ -30,24 +30,68 @@ const images = [
     src: require('../images/parker.png')
   },
   {
-    name: 'juan_atkins',
-    src: require('../images/juan_atkins.jpg')
+    name: 'amp_fiddler',
+    src: require('../images/amp_fiddler.jpg')
+  },
+  {
+    name: 'brendan_gillen',
+    src: require('../images/brendan_gillen.jpg')
   },
   {
     name: 'carl_craig',
     src: require('../images/carl_craig.jpg')
   },
   {
+    name: 'derrick_may',
+    src: require('../images/derrick_may.jpg')
+  },
+  {
+    name: 'dez_andres',
+    src: require('../images/dez_andres.jpg')
+  },
+  {
+    name: 'dj_holographic',
+    src: require('../images/dj_holographic.jpg')
+  },
+  {
+    name: 'dj_minx',
+    src: require('../images/dj_minx.jpg')
+  },
+  {
+    name: 'erika',
+    src: require('../images/erika.jpg')
+  },
+  {
+    name: 'fit_siegal',
+    src: require('../images/fit_siegal.jpg')
+  },
+  {
+    name: 'jeff_mills',
+    src: require('../images/jeff_mills.jpg')
+  },
+  {
+    name: 'john_collins',
+    src: require('../images/john_collins.jpg')
+  },
+  {
+    name: 'k_hand',
+    src: require('../images/k_hand.jpg')
+  },
+  {
     name: 'moodyman',
     src: require('../images/moodyman.jpg')
   },
   {
-    name: 'mike_banks',
-    src: require('../images/mike_banks.jpg')
+    name: 'robert_hood',
+    src: require('../images/robert_hood.jpg')
   },
   {
-    name: 'todd_osborn',
-    src: require('../images/todd_osborn.jpg')
+    name: 'stacey_hotwaxx_hale',
+    src: require('../images/stacey_hotwaxx_hale.jpg')
+  },
+  {
+    name: 'theo_parrish',
+    src: require('../images/theo_parrish.jpg')
   }
 ];
 
@@ -66,6 +110,7 @@ export default class Canvas {
     this.render = this.render.bind(this);
     this.images = [];
     this.isOne = true;
+    this.flash_val = 0.0;
     this.init();
   }
 
@@ -158,6 +203,10 @@ export default class Canvas {
     }
   };
 
+  flashTexture = () => {
+    this.flash_val = 10.0;
+  };
+
   //-----------------------------------------
   // Add material
   //
@@ -189,8 +238,14 @@ export default class Canvas {
   render() {
     requestAnimationFrame(this.render);
     this.delta += 0.1;
+    if (this.flash_val > 0.0) {
+      this.flash_val -= 0.15;
+    } else {
+      this.flash_val = 0.0;
+    }
 
     this.material.uniforms.u_time.value = this.delta;
+    this.material.uniforms.u_flash.value = this.flash_val;
     this.renderer.render(this.scene, this.camera);
   }
 }

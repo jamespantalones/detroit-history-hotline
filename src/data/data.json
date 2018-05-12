@@ -10,15 +10,24 @@
     },
     {
       "id": 1,
-      "name": "Juan Atkins",
+      "name": "Amp Fiddler",
       "audio": "some file",
       "hasCalled": false,
-      "image": "juan_atkins",
-      "slug": "juan_atkins",
-      "text": "Just some basic text about Terrence Parker"
+      "image": "amp_fiddler",
+      "slug": "amp_fiddler",
+      "text": "Just some basic text about Amp Fiddler"
     },
     {
       "id": 2,
+      "name": "Brendan Gillen",
+      "audio": "some file",
+      "hasCalled": true,
+      "image": "brendan_gillen",
+      "slug": "brendan_gillen",
+      "text": "Just some basic text about Brendan Gillen"
+    },
+    {
+      "id": 3,
       "name": "Carl Craig",
       "audio": "some file",
       "hasCalled": true,
@@ -27,31 +36,121 @@
       "text": "Just some basic text about Terrence Parker"
     },
     {
-      "id": 3,
-      "name": "Moodyman",
-      "audio": "some file",
-      "hasCalled": true,
-      "image": "moodyman",
-      "slug": "moodyman",
-      "text": "Just some basic text about Terrence Parker"
-    },
-    {
       "id": 4,
-      "name": "Mike Banks",
+      "name": "Derrick May",
       "audio": "some file",
       "hasCalled": true,
-      "image": "mike_banks",
-      "slug": "mike_banks",
+      "image": "derrick_may",
+      "slug": "derrick_may",
       "text": "Just some basic text about Terrence Parker"
     },
     {
       "id": 5,
-      "name": "Todd Osborn",
+      "name": "Dez Andres",
       "audio": "some file",
       "hasCalled": true,
-      "image": "todd_osborn",
-      "slug": "todd_osborn",
+      "image": "dez_andres",
+      "slug": "dez_andres",
       "text": "Just some basic text about Terrence Parker"
+    },
+    {
+      "id": 6,
+      "name": "DJ Holographic",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "dj_holographic",
+      "slug": "dj_holographic",
+      "text": "Some text"
+    },
+    {
+      "id": 7,
+      "name": "DJ Minx",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "dj_minx",
+      "slug": "dj_minx",
+      "text": "Some text"
+    },
+    {
+      "id": 8,
+      "name": "Erika",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "erika",
+      "slug": "erika",
+      "text": "Some text"
+    },
+    {
+      "id": 9,
+      "name": "FIT Siegal",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "fit_siegal",
+      "slug": "fit_siegal",
+      "text": "Some text"
+    },
+    {
+      "id": 10,
+      "name": "Jeff Mills",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "jeff_mills",
+      "slug": "jeff_mills",
+      "text": "Some text"
+    },
+    {
+      "id": 11,
+      "name": "John Collins",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "john_collins",
+      "slug": "john_collins",
+      "text": "Some text"
+    },
+    {
+      "id": 12,
+      "name": "K-Hand",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "k_hand",
+      "slug": "k_hand",
+      "text": "Some text"
+    },
+    {
+      "id": 13,
+      "name": "Moodyman",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "moodyman",
+      "slug": "moodyman",
+      "text": "Some text"
+    },
+    {
+      "id": 14,
+      "name": "Robert Hood",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "robert_hood",
+      "slug": "robert_hood",
+      "text": "Some text"
+    },
+    {
+      "id": 15,
+      "name": "Stacey Hotwaxx Hale",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "stacey_hotwaxx_hale",
+      "slug": "stacey_hotwaxx_hale",
+      "text": "Some text"
+    },
+    {
+      "id": 16,
+      "name": "Theo Parrish",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "theo_parrish",
+      "slug": "theo_parrish",
+      "text": "Some text"
     }
   ]
 }

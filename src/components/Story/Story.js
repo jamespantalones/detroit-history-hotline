@@ -32,17 +32,12 @@ export default class Story extends Component {
   async componentDidMount() {
     const { person } = this.props.match.params;
 
-    Dialer.play();
+    this.props.setFlash();
 
     // find person in data
     const target = data.calls.find(p => p.slug === person);
     if (target) {
-      this.setState(
-        {
-          story: target
-        },
-        this.init
-      );
+      this.setState({ story: target }, this.init);
     }
   }
 
@@ -68,6 +63,7 @@ export default class Story extends Component {
       onpause: this.onPause,
       onplay: this.onPlay
     });
+    this.props.setGlobalActiveStory(this.state.story);
   }
 
   getMetaData = () => {
@@ -97,11 +93,6 @@ export default class Story extends Component {
   render() {
     return (
       <div className="Story">
-        <Link to="/">
-          <div className="Story__exit">
-            {'<'} Return / {this.state.story.name}
-          </div>
-        </Link>
         <div
           className="Story__body"
           dangerouslySetInnerHTML={renderMarkdown(this.state.story.text)}
