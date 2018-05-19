@@ -1,9 +1,10 @@
 .Stats {
   text-transform: uppercase;
   position: relative;
-  width: calc(100% - 40px);
+  width: calc(100% - 20px);
   z-index: 9;
-  margin: 10px 20px;
+  margin: 10px 10px;
+  -webkit-filter: blur(1px);
 }
 
 .Stats__flex {
@@ -15,6 +16,7 @@
 .Stats__col {
   width: 50%;
   padding: 5px;
+  font-family: 'VT323', monospace;
 }
 
 .Stats p a {
@@ -43,7 +45,8 @@
 }
 
 .Stats p.Stats__hed span {
-  font-size: 22px;
+  font-size: 16px;
+  font-family: 'maison', Helvetica, sans-serif;
 }
 
 .Stats a {
@@ -79,8 +82,7 @@
 .Stats__call {
   position: absolute;
   top: 0;
-  right: 0;
-  font-family: sans-serif;
+  right: 10px;
   text-shadow: 2px 2px 4px black;
   max-width: 400px;
   display: flex;
@@ -95,7 +97,7 @@
 .Stats__call h1 {
   background: none;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 16px;
   font-style: italic;
 }
 
@@ -116,6 +118,14 @@
   font-size: 12px;
 }
 
+@media (min-width: 350px) {
+  .Stats__call h1 {
+    font-size: 22px;
+  }
+  .Stats p.Stats__hed span {
+    font-size: 22px;
+  }
+}
 @media (min-width: 760px) {
   .Stats__call h1 {
     font-size: 48px;
@@ -129,5 +139,15 @@
 @media (min-width: 1020px) {
   .Stats__col.telephony {
     display: block;
+    font-family: 'VT323', monospace;
+  }
+}
+
+@media (min-width: 1600px) {
+  .Stats__call p {
+    max-width: 500px;
+  }
+  .Stats p {
+    font-size: 28px;
   }
 }

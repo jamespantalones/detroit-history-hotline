@@ -9,7 +9,6 @@ import React, { Component, Fragment } from 'react';
 import { Howl } from 'howler';
 import classNames from 'classnames';
 import { Route, withRouter } from 'react-router-dom';
-import { isSameDay } from 'date-fns';
 
 import * as db from './utils/db';
 import Nav from './components/Nav/Nav';
@@ -17,13 +16,10 @@ import Marquee from './components/Marquee/Marquee';
 import Boot from './components/Boot/Boot';
 import Canvas from './scene/Canvas';
 import Story from './components/Story/Story';
-import Title from './components/Title/Title';
 import Dashboard from './components/Dashboard/Dashboard';
-import Radio from './components/Dashboard/Radio/Radio';
 import Stats from './components/Dashboard/Stats/Stats';
 
 import dataJson from './data/data.json';
-import bootText from './data/boot.txt';
 import marqueeText from './data/marquee.txt';
 
 import tick from './audio/click_digi_02.mp3';
@@ -32,6 +28,7 @@ import exit from './audio/digi_plink_off.mp3';
 
 import './App.css';
 
+// SFX for main page
 const tickAudio = new Howl({ src: [tick], volume: 0.1 });
 const enterAudio = new Howl({ src: [enter], volume: 0.2 });
 const exitAudio = new Howl({ src: [exit], volume: 0.2 });
@@ -54,7 +51,6 @@ class App extends Component {
       activeStory: null,
       bootFinished: false,
       backgroundLoaded: false,
-      title: '',
       lastVisit: ''
     };
     this.c = null;
@@ -196,6 +192,14 @@ class App extends Component {
   // Render
   //
   render() {
+    const {
+      activeStory,
+      bootFinished,
+      data,
+      lastVisit,
+      marqueeText
+    } = this.state;
+
     const cx = classNames({
       Background: true,
       loaded: this.state.backgroundLoaded
@@ -203,15 +207,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Nav />
+        <Nav activeStory={activeStory} />
         {/*BACKGROUND CANVAS */}
         <div className={cx}>
           <div ref={c => (this.c = c)} />{' '}
         </div>
-        <Stats
-          lastVisit={this.state.lastVisit}
-          activeStory={this.state.activeStory}
-        />
+        <Stats lastVisit={lastVisit} activeStory={activeStory} />
         <Route
           exact
           path="/"
@@ -219,16 +220,16 @@ class App extends Component {
             return (
               <Fragment>
                 <Boot
-                  data={this.state.data}
+                  data={data}
                   onFinishedBoot={this.onFinishedBoot}
-                  bootFinished={this.state.bootFinished}
+                  bootFinished={bootFinished}
                 />
 
                 <Dashboard
-                  bootFinished={this.state.bootFinished}
-                  data={this.state.data}
+                  bootFinished={bootFinished}
+                  data={data}
                   handleMouseEnter={this.handleMouseEnter}
-                  lastVisit={this.state.lastVisit}
+                  lastVisit={lastVisit}
                   setFlash={this.setFlash}
                 />
               </Fragment>
@@ -250,7 +251,7 @@ class App extends Component {
           }}
         />
         <div className="App__marquee">
-          <Marquee text={this.state.marqueeText} />
+          <Marquee text={marqueeText} />
         </div>
       </div>
     );

@@ -2,7 +2,7 @@
   "calls": [
 
     {
-      "id": 1,
+      "id": 10,
       "name": "DJ Minx",
       "audio": "some file",
       "hasCalled": false,
@@ -12,17 +12,17 @@
     },
 
     {
-      "id": 2,
+      "id": 11,
       "name": "Derrick May",
       "audio": "some file",
-      "hasCalled": true,
+      "hasCalled": false,
       "image": "derrick_may",
       "slug": "derrick_may",
       "text": ""
     },
 
     {
-      "id": 3,
+      "id": 12,
       "name": "Jeff Mills",
       "audio": "some file",
       "hasCalled": false,
@@ -32,17 +32,17 @@
     },
 
     {
-      "id": 4,
+      "id": 13,
       "name": "Carl Craig",
       "audio": "some file",
-      "hasCalled": true,
+      "hasCalled": false,
       "image": "carl_craig",
       "slug": "carl_craig",
       "text": ""
     },
 
     {
-      "id": 5,
+      "id": 14,
       "name": "Robert Hood",
       "audio": "some file",
       "hasCalled": false,
@@ -52,7 +52,7 @@
     },
 
     {
-      "id": 6,
+      "id": 15,
       "name": "Theo Parrish",
       "audio": "some file",
       "hasCalled": false,
@@ -62,7 +62,7 @@
     },
 
     {
-      "id": 7,
+      "id": 16,
       "name": "DJ Holographic",
       "audio": "some file",
       "hasCalled": false,
@@ -72,7 +72,7 @@
     },
 
     {
-      "id": 8,
+      "id": 17,
       "name": "Leon Ware",
       "audio": "some file",
       "hasCalled": false,
@@ -82,12 +82,21 @@
     },
 
     {
-      "id": 9,
+      "id": 18,
       "name": "Waajeed",
       "audio": "some file",
       "hasCalled": false,
       "image": "waajeed",
       "slug": "waajeed",
+      "text": ""
+    },
+    {
+      "id": 19,
+      "name": "Erika",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "erika",
+      "slug": "erika",
       "text": ""
     }
 

@@ -34,6 +34,12 @@ export default {
       end: 'The End. Press any key to return to the main menu.'
     },
 
+    erika: {
+      src: 'erika.mp3',
+      name: 'Erika',
+      end: 'The End. Press any key to return to the main menu.'
+    },
+
     jeff_mills: {
       src: 'jeff_mills.mp3',
       name: 'Jeff Mills',

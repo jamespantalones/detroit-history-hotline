@@ -5,7 +5,7 @@
 //----------------------------------
 import React, { Component } from 'react';
 
-import { deferWork, renderHTML } from '../../utils';
+import { deferWork, renderMarkdown } from '../../utils';
 import './Marquee.css';
 
 export default class Marquee extends Component {
@@ -114,7 +114,7 @@ export default class Marquee extends Component {
         className="marquee"
         style={{ left: `${this.state.innerWidth * pos}px` }}
       >
-        <p dangerouslySetInnerHTML={renderHTML(this.props.text)} />
+        <div dangerouslySetInnerHTML={renderMarkdown(this.props.text)} />
       </div>
     );
   }

@@ -4,6 +4,8 @@
   height: 100%;
   position: relative;
   background: transparent;
+  margin-top: 0px;
+  -webkit-filter: blur(1px);
 }
 
 .CallTable h1 {
@@ -16,7 +18,11 @@
 .CallTable__table_wrapper {
   height: 100%;
   width: 100%;
-  font-size: 16px;
+  font-size: 12px;
+  display: flex;
+  align-item: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .CallTable__group.bottom {
@@ -38,7 +44,6 @@
   cursor: pointer;
   margin-bottom: 10px;
   padding: 10px;
-  font-family: Helvetica;
   color: white;
 }
 
@@ -68,4 +73,16 @@
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+@media (min-width: 760px) {
+  .CallTable__table_wrapper {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 760px) {
+  .CallTable__table_wrapper {
+    font-size: 16px;
+  }
 }

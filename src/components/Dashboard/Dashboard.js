@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import CallTable from './CallTable/CallTable';
-import Radio from './Radio/Radio';
+
 import './Dashboard.css';
 
 export default class Dashboard extends Component {
@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
     this.props.setFlash();
   }
   render() {
-    const { bootFinished, data, handleMouseEnter, lastVisit } = this.props;
+    const { bootFinished, data, handleMouseEnter } = this.props;
 
     const cx = classNames({
       Dashboard: true,

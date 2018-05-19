@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Howl } from 'howler';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import * as db from '../../utils/db';
 import { renderMarkdown, getAudio } from '../../utils';
 import data from '../../data/data.json';
-import Dialer from '../../audio/dialer';
 import config from '../../config';
 
 import './Story.css';
@@ -18,6 +17,8 @@ export default class Story extends Component {
       currentTime: 0,
       duration: 0,
       shouldRedirect: false,
+      mousedown: false,
+      rect: { width: 0, left: 0, right: 0 },
       story: {
         id: 0,
         name: '',
@@ -28,6 +29,7 @@ export default class Story extends Component {
         text: ''
       }
     };
+    this.el = null;
     this.loop = null;
     this.timer = null;
     this.audio = null;
@@ -50,6 +52,11 @@ export default class Story extends Component {
     if (target) {
       this.setState({ story: target }, this.init);
     }
+
+    const { left, right, width } = this.el.getBoundingClientRect();
+    this.setState({
+      rect: { left, right, width }
+    });
   }
 
   //-----------------------------------------
@@ -70,6 +77,11 @@ export default class Story extends Component {
       clearTimeout(this.timer);
       this.timer = null;
     }
+    this.setState({
+      duration: 0,
+      currentTime: 0,
+      mousedown: false
+    });
   }
 
   //-----------------------------------------
@@ -95,7 +107,7 @@ export default class Story extends Component {
 
   getMetaData = () => {
     this.setState({
-      duration: this.audio.duration()
+      duration: this.audio.duration().toFixed(2)
     });
     this.audio.play();
   };
@@ -135,6 +147,46 @@ export default class Story extends Component {
     this.audio.seek(ev.target.value);
   };
 
+  onMouseDown = ev => {
+    this.setState({ mousedown: true }, () => {
+      this.el.addEventListener('mousemove', this.onMouseMove, false);
+      this.el.addEventListener('touchmove', this.onTouchMove, false);
+    });
+  };
+  onMouseUp = ev => {
+    this.setState({ mouseup: true }, () => {
+      this.el.removeEventListener('mousemove', this.onMouseMove, false);
+      this.el.removeEventListener('touchmove', this.onTouchMove, false);
+    });
+  };
+
+  onMouseMove = ev => {
+    if (this.state.mousedown) {
+      this.seek(ev);
+    }
+  };
+
+  onTouchMove = ev => {
+    const evt = { pageX: ev.touches[0].pageX };
+    this.seek(evt);
+  };
+
+  seek(ev) {
+    const { width, left } = this.state.rect;
+    const { pageX } = ev;
+    const x = pageX - left;
+    let percent = x / width;
+    if (percent >= 100) {
+      percent = 100;
+    }
+    this.audio.seek(percent * this.state.duration);
+  }
+
+  handleClick = ev => {
+    ev.preventDefault();
+    this.seek(ev);
+  };
+
   render() {
     if (this.state.shouldRedirect === true) {
       return <Redirect to="/" />;
@@ -146,28 +198,37 @@ export default class Story extends Component {
           className="Story__body"
           dangerouslySetInnerHTML={renderMarkdown(this.state.story.text)}
         />
-        <div className={'Story__stats'}>
+        <div className="Story__stats">
           <div
             className="Story__stats_bg"
+            ref={el => (this.el = el)}
+            onMouseDown={this.onMouseDown}
+            onMouseUp={this.onMouseUp}
+            onTouchStart={this.onMouseDown}
+            onTouchEnd={this.onMouseUp}
+            onClick={this.handleClick}
             style={{
+              userSelect: 'none',
               backgroundImage: `url(${config.cdn +
                 this.state.story.slug +
                 '.png'})`
             }}
           />
-          <input
-            type="range"
-            min={0}
-            max={this.state.duration}
-            step="0.01"
-            value={this.state.currentTime.toFixed(2)}
-            onChange={this.handleChange}
+
+          <div
+            className="Story__stats_overlay"
+            style={{
+              transform: `translate3d(${-100 +
+                this.state.currentTime / this.state.duration * 100}%,0,0)`,
+              opacity: this.state.currentTime > 0 ? 1 : 0
+            }}
           />
-          <p>
+
+          <div className="Story__stats_time">
             {this.state.currentTime.toFixed(2)}
             s / {this.state.duration}
             s
-          </p>
+          </div>
         </div>
       </div>
     );

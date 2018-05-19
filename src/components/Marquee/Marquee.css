@@ -7,7 +7,7 @@
   border-top: 1px solid black;
   text-transform: uppercase;
   background: black;
-  color: yellow;
+  -webkit-filter: blur(1px);
 }
 
 .marquee__inner {
@@ -27,9 +27,8 @@
 }
 .marquee__inner .marquee p {
   display: inline-block;
-  margin: 0 20px;
+  margin: 0 10px;
   font-family: Helvetica, sans-serif;
-  color: white;
   font-size: 16px;
   transform: scaleY(1.5);
   letter-spacing: 0;

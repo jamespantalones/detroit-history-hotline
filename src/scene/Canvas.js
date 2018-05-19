@@ -65,6 +65,10 @@ export const canvasImages = [
   {
     name: 'waajeed',
     src: require('../images/waajeed.jpg')
+  },
+  {
+    name: 'erika',
+    src: require('../images/erika.jpg')
   }
 ];
 
@@ -210,8 +214,6 @@ export default class Canvas {
   // Add material
   //
   addMaterial() {
-    const loader = new TextureLoader();
-
     const geometry = new PlaneBufferGeometry(5, 2, 128, 128);
 
     this.material = new ShaderMaterial({

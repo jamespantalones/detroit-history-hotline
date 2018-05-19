@@ -1,5 +1,4 @@
 import { Howl } from 'howler';
-const pathToAudio = require.context('./tones', true);
 
 const SOUNDS = [
   {

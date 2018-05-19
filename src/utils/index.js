@@ -30,32 +30,35 @@ export const renderHTML = text => {
 export const getAudio = ext => {
   const d = parseInt(ext, 10);
   switch (d) {
-    case 1:
+    case 10:
       return config.audio.dj_minx;
 
-    case 2:
+    case 11:
       return config.audio.derrick_may;
 
-    case 3:
+    case 12:
       return config.audio.jeff_mills;
 
-    case 4:
+    case 13:
       return config.audio.carl_craig;
 
-    case 5:
+    case 14:
       return config.audio.robert_hood;
 
-    case 6:
+    case 15:
       return config.audio.theo_parrish;
 
-    case 7:
+    case 16:
       return config.audio.dj_holographic;
 
-    case 8:
+    case 17:
       return config.audio.leon_ware;
 
-    case 9:
+    case 18:
       return config.audio.waajeed;
+
+    case 19:
+      return config.audio.erika;
 
     default:
       return config.audio.default;

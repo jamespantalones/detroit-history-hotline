@@ -3,7 +3,7 @@
 // Nav
 //
 //-----------------------------------------
-
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './Nav.css';
 
@@ -11,6 +11,9 @@ function Nav() {
   return (
     <nav className="Nav">
       <div className="Nav__main_title">
+        <div className="Nav__hed">
+          <Link to="/">Detroit History Hotline</Link>
+        </div>
         <div className="Nav__main_title__full">
           Red Bull Music Academy Daily
         </div>

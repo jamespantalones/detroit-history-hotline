@@ -10,6 +10,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-transform: none;
+  -webkit-filter: blur(1px);
+  user-select: none;
 }
 
 .Nav__main_title {
@@ -18,15 +21,36 @@
   font-size: 1.25rem;
   line-height: 25px;
   margin: 0;
-  text-transform: uppercase;
 }
 
 .Nav__logo {
   position: absolute;
-  left: 16px;
+  right: 16px;
   top: 9px;
   width: 60px;
   height: 30px;
+}
+
+.Nav__main_title__condensed {
+  display: none;
+}
+
+.Nav__hed {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  line-height: 50px;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.Nav__hed a {
+  color: teal;
+  text-decoration: none;
+  display: inline-block;
+}
+.Nav__hed a:hover {
+  transform: skewX(-15deg);
 }
 
 .Nav__logo svg {
@@ -36,6 +60,12 @@
 
 .Nav__main_title__full {
   display: none;
+}
+
+@media (min-width: 760px) {
+  .Nav__main_title__condensed {
+    display: inline-block;
+  }
 }
 
 @media (min-width: 1020px) {
