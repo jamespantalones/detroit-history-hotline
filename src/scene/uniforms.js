@@ -1,4 +1,4 @@
-import { Vector2 } from 'three';
+const THREE = window.THREE;
 
 const uniforms = {
   u_time: {
@@ -7,7 +7,7 @@ const uniforms = {
   },
   u_resolution: {
     type: 'v2',
-    value: new Vector2(window.innerWidth, window.innerHeight)
+    value: new THREE.Vector2(window.innerWidth, window.innerHeight)
   },
   u_texture: {
     type: 't',

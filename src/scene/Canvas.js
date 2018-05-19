@@ -1,20 +1,10 @@
 // Canvas
 
-import {
-  PerspectiveCamera,
-  PlaneBufferGeometry,
-  TextureLoader,
-  WebGLRenderer,
-  ShaderMaterial,
-  Vector2,
-  RepeatWrapping,
-  Mesh,
-  Scene
-} from 'three';
-
 import createFragmentShader from './fragment';
 import createVertexShader from './vertex';
 import createUniforms from './uniforms';
+
+const THREE = window.THREE;
 
 export const canvasImages = [
   {
@@ -111,7 +101,7 @@ export default class Canvas {
   }
 
   addScene() {
-    this.scene = new Scene();
+    this.scene = new THREE.Scene();
   }
 
   onResize = ev => {
@@ -121,12 +111,12 @@ export default class Canvas {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
 
-    this.material.uniforms.u_resolution.value = new Vector2(w, h);
+    this.material.uniforms.u_resolution.value = new THREE.Vector2(w, h);
     this.renderer.setSize(w, h);
   };
 
   addRenderer() {
-    this.renderer = new WebGLRenderer();
+    this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.parent.appendChild(this.renderer.domElement);
   }
@@ -135,7 +125,7 @@ export default class Canvas {
   // Generic camera
   //
   addCamera() {
-    this.camera = new PerspectiveCamera(
+    this.camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       1,
@@ -146,7 +136,7 @@ export default class Canvas {
 
   loadSingleTexture(img) {
     return new Promise((resolve, reject) => {
-      const loader = new TextureLoader();
+      const loader = new THREE.TextureLoader();
 
       loader.load(
         img.src,
@@ -214,9 +204,9 @@ export default class Canvas {
   // Add material
   //
   addMaterial() {
-    const geometry = new PlaneBufferGeometry(5, 2, 128, 128);
+    const geometry = new THREE.PlaneBufferGeometry(5, 2, 128, 128);
 
-    this.material = new ShaderMaterial({
+    this.material = new THREE.ShaderMaterial({
       uniforms: createUniforms,
       vertexShader: createVertexShader,
       fragmentShader: createFragmentShader
@@ -226,10 +216,10 @@ export default class Canvas {
 
     const texture = t.texture;
 
-    texture.wrapS = texture.wrapT = RepeatWrapping;
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     this.material.uniforms.u_texture.value = texture;
     this.material.needsUpdate = true;
-    this.mesh = new Mesh(geometry, this.material);
+    this.mesh = new THREE.Mesh(geometry, this.material);
     this.mesh.position.z = 0;
     this.scene.add(this.mesh);
     this.callback();

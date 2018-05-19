@@ -35,6 +35,11 @@
       -webkit-tap-highglight-color: transparent;
     }
   }
+  @media (min-width: 1020px) {
+    p {
+      font-size: 22px;
+    }
+  }
   @media (min-width: 1600px) {
     p {
       font-size: 28px;
@@ -78,7 +83,7 @@
 
 .Telephony {
   display: none;
-  @media (min-width: 1020px) {
+  @media (min-width: 1250px) {
     display: block;
     font-family: 'VT323', monospace;
   }
@@ -111,18 +116,19 @@
         transform: skewX(-15deg);
       }
     }
-    p {
-      font-weight: bold;
-      color: yellow;
-      max-width: 150px;
-      text-align: right;
-      font-size: 12px;
-      @media (min-width: 760px) {
-        max-width: 300px;
-      }
-      @media (min-width: 1600px) {
-        max-width: 500px;
-      }
+  }
+  p {
+    font-weight: bold;
+    color: yellow;
+    max-width: 150px;
+    text-align: right;
+    font-size: 12px;
+    @media (min-width: 760px) {
+      max-width: 300px;
+      font-size: 16px;
+    }
+    @media (min-width: 1600px) {
+      max-width: 500px;
     }
   }
 }

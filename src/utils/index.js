@@ -1,6 +1,9 @@
 import marked from 'marked';
 import config from '../config';
 
+//-----------------------------------------
+// Defer work
+//
 export const deferWork = fn => {
   if (typeof requestIdleCallback !== 'undefined') {
     window.requestIdleCallback(fn, {
