@@ -23,11 +23,7 @@ export default class Dashboard extends Component {
 
     return (
       <div className={cx}>
-        <div className="Dashboard__flex">
-          <div className="Dashboard__col">
-            <CallTable calls={data.calls} handleMouseEnter={handleMouseEnter} />
-          </div>
-        </div>
+        <CallTable calls={data.calls} handleMouseEnter={handleMouseEnter} />
       </div>
     );
   }

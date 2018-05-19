@@ -91,21 +91,35 @@ export default class Canvas {
   // set up GL
   //
   async init() {
+    this.addScene();
+    this.addRenderer();
+    this.addCamera();
+
     try {
-      this.addScene();
-      this.addRenderer();
-      this.addCamera();
       await this.loadMultiTextures();
       this.addMaterial();
       this.render();
     } catch (err) {
       console.log('Error in init', err);
     }
+
+    window.addEventListener('resize', this.onResize, false);
   }
 
   addScene() {
     this.scene = new Scene();
   }
+
+  onResize = ev => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    this.camera.aspect = w / h;
+    this.camera.updateProjectionMatrix();
+
+    this.material.uniforms.u_resolution.value = new Vector2(w, h);
+    this.renderer.setSize(w, h);
+  };
 
   addRenderer() {
     this.renderer = new WebGLRenderer();

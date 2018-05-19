@@ -13,7 +13,31 @@ function CallTable({ active, calls, handleMouseEnter, right }) {
   return (
     <div className={cx}>
       <div className="CallTable__table_wrapper">
-        <table>
+        <div className="CallTable__group">
+          <div className="CallTable__row top">
+            <div>Extension</div>
+            <div>Name</div>
+            <div>Called</div>
+            <div />
+          </div>
+        </div>
+
+        <div className="CallTable__group bottom">
+          {calls.map(item => (
+            <div
+              className="CallTable__row"
+              key={item.id}
+              onMouseEnter={handleMouseEnter(item)}
+              onMouseLeave={handleMouseEnter('')}
+            >
+              <div>#{item.id}</div>
+              <div>{item.name}</div>
+              <div>{item.hasCalled ? '*' : 'x'}</div>
+              <div>Call now</div>
+            </div>
+          ))}
+        </div>
+        {/*  <table>
           <thead>
             <tr className="tr_head">
               <th>Extension</th>
@@ -42,7 +66,7 @@ function CallTable({ active, calls, handleMouseEnter, right }) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table>*/}
       </div>
     </div>
   );

@@ -101,4 +101,8 @@
   .Stats__col.telephony {
     display: block;
   }
+
+  .Stats__call p {
+    max-width: 300px;
+  }
 }
