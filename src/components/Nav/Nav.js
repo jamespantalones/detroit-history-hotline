@@ -5,21 +5,19 @@
 //-----------------------------------------
 import { Link } from 'react-router-dom';
 import React from 'react';
-import './Nav.css';
+import styles from './Nav.css';
 
 function Nav() {
   return (
-    <nav className="Nav">
-      <div className="Nav__main_title">
-        <div className="Nav__hed">
+    <nav className={styles.Nav}>
+      <div className={styles.Title}>
+        <div className={styles.Hed}>
           <Link to="/">Detroit History Hotline</Link>
         </div>
-        <div className="Nav__main_title__full">
-          Red Bull Music Academy Daily
-        </div>
-        <div className="Nav__main_title__condensed">RBMA Daily</div>
+        <div className={styles.FullTitle}>Red Bull Music Academy Daily</div>
+        <div className={styles.CondensedTitle}>RBMA Daily</div>
       </div>
-      <a href="https://daily.redbullmusicacademy.com" className="Nav__logo">
+      <a href="https://daily.redbullmusicacademy.com" className={styles.Logo}>
         <svg
           viewBox="0 0 372 177"
           strokeLinejoin="round"

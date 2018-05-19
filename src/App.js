@@ -26,7 +26,7 @@ import tick from './audio/click_digi_02.mp3';
 import enter from './audio/digi_plink_on.mp3';
 import exit from './audio/digi_plink_off.mp3';
 
-import './App.css';
+import styles from './App.css';
 
 // SFX for main page
 const tickAudio = new Howl({ src: [tick], volume: 0.1 });
@@ -201,12 +201,12 @@ class App extends Component {
     } = this.state;
 
     const cx = classNames({
-      Background: true,
-      loaded: this.state.backgroundLoaded
+      [styles.Background]: true,
+      [styles.BackgroundLoaded]: this.state.backgroundLoaded
     });
 
     return (
-      <div className="App">
+      <div className={styles.App}>
         <Nav activeStory={activeStory} />
         {/*BACKGROUND CANVAS */}
         <div className={cx}>
@@ -250,7 +250,7 @@ class App extends Component {
             );
           }}
         />
-        <div className="App__marquee">
+        <div className={styles.Marquee}>
           <Marquee text={marqueeText} />
         </div>
       </div>

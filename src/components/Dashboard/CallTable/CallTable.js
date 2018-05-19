@@ -2,73 +2,51 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import './CallTable.css';
+import styles from './CallTable.css';
 
-function CallTable({ active, calls, handleMouseEnter, right }) {
+function CallTable({ active, calls, handleMouseEnter }) {
   const cx = classNames({
-    CallTable: true,
-    active,
-    right
+    [styles.CallTable]: true,
+    [styles.active]: active
+  });
+
+  const b = classNames({
+    [styles.Group]: true,
+    [styles.bottom]: true
+  });
+  const r = classNames({
+    [styles.Row]: true,
+    [styles.rowTop]: true
   });
   return (
     <div className={cx}>
-      <div className="CallTable__table_wrapper">
-        <div className="CallTable__group">
-          <div className="CallTable__row top">
-            <div className="col_1">Ext.</div>
-            <div className="col_3">Name</div>
-            <div className="col_1">Called</div>
+      <div className={styles.Wrapper}>
+        <div className={styles.Group}>
+          <div className={r}>
+            <div className={styles.Col1}>Ext.</div>
+            <div className={styles.Col3}>Name</div>
+            <div className={styles.Col1}>Called</div>
             <div />
           </div>
         </div>
 
-        <div className="CallTable__group bottom">
+        <div className={b}>
           {calls.map(item => (
             <Link key={item.id} to={'/stories/' + item.slug}>
               <div
-                className="CallTable__row"
+                className={styles.Row}
                 key={item.id}
                 onMouseEnter={handleMouseEnter(item)}
                 onMouseLeave={handleMouseEnter('')}
               >
-                <div className="col_1">#{item.id}</div>
-                <div className="col_3">{item.name}</div>
-                <div className="col_1">{item.hasCalled ? '✓' : '×'}</div>
+                <div className={styles.Col1}>#{item.id}</div>
+                <div className={styles.Col3}>{item.name}</div>
+                <div className={styles.Col1}>{item.hasCalled ? '✓' : '×'}</div>
                 <div>Call now</div>
               </div>
             </Link>
           ))}
         </div>
-        {/*  <table>
-          <thead>
-            <tr className="tr_head">
-              <th>Extension</th>
-              <th>Name</th>
-              <th>Called</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {calls.map(item => (
-              <tr
-                key={item.id}
-                onMouseEnter={handleMouseEnter(item)}
-                onMouseLeave={handleMouseEnter('')}
-              >
-                <td>#{item.id}</td>
-
-                <td>{item.name}</td>
-                <td>{item.hasCalled ? '*' : 'x'}</td>
-
-                <td>
-                  <Link key={item.id} to={'/stories/' + item.slug}>
-                    Call Now!
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>*/}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-.List {
+.Boot {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -7,30 +7,30 @@
   background: rgba(0, 0, 0, 0.3);
   font-family: 'VT323', monospace;
   -webkit-filter: blur(1px);
+
+  ul {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    list-style-type: none;
+    padding: 100px 0;
+    opacity: 1;
+    margin-left: 20px;
+    max-width: 90%;
+  }
 }
 
-.List.full {
+.out {
+  opacity: 0 !important;
+  transition: all 0.5s linear;
+  transform: translateY(-200%);
+}
+
+.full {
   left: 0;
   right: 0;
   width: auto;
-}
-
-.List ul {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  font-size: 12px;
-  list-style-type: none;
-  padding: 100px 0;
-  opacity: 1;
-  margin-left: 20px;
-  max-width: 90%;
-}
-
-.List ul.out {
-  opacity: 0;
-  transition: all 0.5s linear;
-  transform: translateY(-200%);
 }
 
 .CallNow {

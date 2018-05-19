@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 
 import { deferWork, renderMarkdown } from '../../utils';
-import './Marquee.css';
+import styles from './Marquee.css';
 
 export default class Marquee extends Component {
   constructor() {
@@ -111,7 +111,7 @@ export default class Marquee extends Component {
     return (
       <div
         ref={inner => (this.inner = inner)}
-        className="marquee"
+        className={styles.Marquee}
         style={{ left: `${this.state.innerWidth * pos}px` }}
       >
         <div dangerouslySetInnerHTML={renderMarkdown(this.props.text)} />
@@ -124,9 +124,9 @@ export default class Marquee extends Component {
       return null;
     }
     return (
-      <div className="marquee__wrapper">
+      <div className={styles.Wrapper}>
         <div
-          className="marquee__inner"
+          className={styles.Inner}
           style={{ transform: `translate3d(${this.state.x}px, 0, 0)` }}
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}

@@ -97,5 +97,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "postcss-nested": "^3.0.0"
   }
 }

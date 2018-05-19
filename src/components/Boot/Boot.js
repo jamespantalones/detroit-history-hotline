@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 import bootText from '../../data/boot.txt';
-import './Boot.css';
+import styles from './Boot.css';
 
 export default class List extends Component {
   constructor() {
@@ -54,12 +54,12 @@ export default class List extends Component {
 
   render() {
     const c = classNames({
-      List: true,
-      full: this.state.full
+      [styles.Boot]: true,
+      [styles.full]: this.state.full
     });
 
     const cy = classNames({
-      out: this.props.bootFinished
+      [styles.out]: this.props.bootFinished
     });
 
     return (

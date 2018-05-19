@@ -1,10 +1,9 @@
 // Stats
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 
 import { format } from 'date-fns';
-import './Stats.css';
+import styles from './Stats.css';
 
 export default class Stats extends Component {
   constructor() {
@@ -50,32 +49,31 @@ export default class Stats extends Component {
   render() {
     const { lastVisit } = this.props;
     const cx = classNames({
-      Breadcrumbs: this.props.activeStory !== null
+      [styles.Breadcrumbs]: this.props.activeStory !== null
     });
     return (
-      <div className="Stats">
-        <div className="Stats__flex">
-          <div className="Stats__col">
-            <p className="Stats__hed">
+      <div className={styles.Stats}>
+        <div className={styles.Flex}>
+          <div className={styles.Col}>
+            <p className={styles.Hed}>
               {this.props.activeStory ? this.props.activeStory.name : 'HOME'}
             </p>
-            <p className="Stats__dek" />
             <p>{this.state.time}</p>
             <p>
-              <span className="y">Last on:</span>{' '}
+              <span className={styles.Yellow}>Last on:</span>{' '}
               {lastVisit ? format(lastVisit, 'MM/DD/YY') : ''}
             </p>
           </div>
 
-          <div className="Stats__col telephony">
-            <p className="y">Premier SBS Telephony</p>
-            <p className="t">
+          <div className={[styles.Col, styles.Telephony].join(' ')}>
+            <p className={styles.Yellow}>Premier SBS Telephony</p>
+            <p className={styles.Teal}>
               Node: {this.props.activeStory ? this.props.activeStory.name : 1}
             </p>
           </div>
         </div>
 
-        <div className="Stats__call">
+        <div className={styles.Call}>
           <h1>
             <a href="tel:+13139864606">1-313-986-4606</a>
           </h1>

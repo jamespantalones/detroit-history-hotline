@@ -7,7 +7,7 @@ import { renderMarkdown, getAudio } from '../../utils';
 import data from '../../data/data.json';
 import config from '../../config';
 
-import './Story.css';
+import styles from './Story.css';
 
 export default class Story extends Component {
   constructor() {
@@ -193,14 +193,14 @@ export default class Story extends Component {
     }
 
     return (
-      <div className="Story">
+      <div className={styles.Story}>
         <div
-          className="Story__body"
+          className={styles.Body}
           dangerouslySetInnerHTML={renderMarkdown(this.state.story.text)}
         />
-        <div className="Story__stats">
+        <div className={styles.Stats}>
           <div
-            className="Story__stats_bg"
+            className={styles.Waveform}
             ref={el => (this.el = el)}
             onMouseDown={this.onMouseDown}
             onMouseUp={this.onMouseUp}
@@ -216,7 +216,7 @@ export default class Story extends Component {
           />
 
           <div
-            className="Story__stats_overlay"
+            className={styles.Overlay}
             style={{
               transform: `translate3d(${-100 +
                 this.state.currentTime / this.state.duration * 100}%,0,0)`,
@@ -224,7 +224,7 @@ export default class Story extends Component {
             }}
           />
 
-          <div className="Story__stats_time">
+          <div className={styles.Time}>
             {this.state.currentTime.toFixed(2)}
             s / {this.state.duration}
             s

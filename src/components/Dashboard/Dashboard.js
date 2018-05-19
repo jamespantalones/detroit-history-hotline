@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import CallTable from './CallTable/CallTable';
 
-import './Dashboard.css';
+import styles from './Dashboard.css';
 
 export default class Dashboard extends Component {
   componentDidMount() {
@@ -17,8 +17,8 @@ export default class Dashboard extends Component {
     const { bootFinished, data, handleMouseEnter } = this.props;
 
     const cx = classNames({
-      Dashboard: true,
-      active: bootFinished
+      [styles.Dashboard]: true,
+      [styles.active]: bootFinished
     });
 
     return (
