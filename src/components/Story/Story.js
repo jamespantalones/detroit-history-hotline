@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Howl } from 'howler';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
+import * as db from '../../utils/db';
 import { renderMarkdown, getAudio } from '../../utils';
 import data from '../../data/data.json';
 import Dialer from '../../audio/dialer';
@@ -16,6 +17,7 @@ export default class Story extends Component {
       playing: false,
       currentTime: 0,
       duration: 0,
+      shouldRedirect: false,
       story: {
         id: 0,
         name: '',
@@ -27,6 +29,7 @@ export default class Story extends Component {
       }
     };
     this.loop = null;
+    this.timer = null;
     this.audio = null;
   }
 
@@ -62,6 +65,11 @@ export default class Story extends Component {
       cancelAnimationFrame(this.loop);
       this.loop = null;
     }
+
+    if (this.timer !== null) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
   }
 
   //-----------------------------------------
@@ -72,7 +80,6 @@ export default class Story extends Component {
     this.props.swapTexture(this.state.story);
 
     const audioFile = getAudio(this.state.story.id);
-    console.log('FILE', audioFile);
 
     // set up new audio
     this.audio = new Howl({
@@ -80,7 +87,8 @@ export default class Story extends Component {
       volume: 0.5,
       onload: this.getMetaData,
       onpause: this.onPause,
-      onplay: this.onPlay
+      onplay: this.onPlay,
+      onend: this.onEnd
     });
     this.props.setGlobalActiveStory(this.state.story);
   }
@@ -94,6 +102,24 @@ export default class Story extends Component {
 
   onPlay = () => {
     this.renderMeta();
+  };
+
+  onEnd = async () => {
+    try {
+      db.saveCompletedItem(this.state.story.slug);
+    } catch (err) {
+      console.error('Error saving completion', err);
+    }
+
+    this.props.flagAsComplete(this.state.story.slug);
+
+    this.timer = setTimeout(() => {
+      this.setState({
+        shouldRedirect: true
+      });
+    }, 250);
+
+    // save item in localstorage
   };
 
   onPause = () => {};
@@ -110,6 +136,10 @@ export default class Story extends Component {
   };
 
   render() {
+    if (this.state.shouldRedirect === true) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div className="Story">
         <div

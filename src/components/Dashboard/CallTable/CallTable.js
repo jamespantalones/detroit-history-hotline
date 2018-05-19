@@ -15,26 +15,28 @@ function CallTable({ active, calls, handleMouseEnter, right }) {
       <div className="CallTable__table_wrapper">
         <div className="CallTable__group">
           <div className="CallTable__row top">
-            <div>Extension</div>
-            <div>Name</div>
-            <div>Called</div>
+            <div className="col_1">Ext.</div>
+            <div className="col_3">Name</div>
+            <div className="col_1">Called</div>
             <div />
           </div>
         </div>
 
         <div className="CallTable__group bottom">
           {calls.map(item => (
-            <div
-              className="CallTable__row"
-              key={item.id}
-              onMouseEnter={handleMouseEnter(item)}
-              onMouseLeave={handleMouseEnter('')}
-            >
-              <div>#{item.id}</div>
-              <div>{item.name}</div>
-              <div>{item.hasCalled ? '*' : 'x'}</div>
-              <div>Call now</div>
-            </div>
+            <Link key={item.id} to={'/stories/' + item.slug}>
+              <div
+                className="CallTable__row"
+                key={item.id}
+                onMouseEnter={handleMouseEnter(item)}
+                onMouseLeave={handleMouseEnter('')}
+              >
+                <div className="col_1">#{item.id}</div>
+                <div className="col_3">{item.name}</div>
+                <div className="col_1">{item.hasCalled ? '✓' : '×'}</div>
+                <div>Call now</div>
+              </div>
+            </Link>
           ))}
         </div>
         {/*  <table>

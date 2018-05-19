@@ -58,9 +58,9 @@ export default class Stats extends Component {
           <div className="Stats__col">
             <p className="Stats__hed">
               <Link to="/">
-                <span className={cx}>Detroit Stories Hotline</span>
+                <span className={cx}>Detroit Stories</span>
               </Link>
-              {this.props.activeStory ? '/ ' + this.props.activeStory.name : ''}
+              {this.props.activeStory ? this.props.activeStory.name : 'HOME'}
             </p>
             <p className="Stats__dek" />
             <p>{this.state.time}</p>

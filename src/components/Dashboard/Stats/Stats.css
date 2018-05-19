@@ -19,7 +19,19 @@
 
 .Stats p a {
   text-decoration: underline;
-  margin-right: 5px;
+  user-select: none;
+}
+
+.Stats p span {
+  display: block;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highglight-color: transparent;
+}
+
+.Stats p span.y {
+  display: inline;
 }
 
 .Stats p span.Breadcrumbs {
@@ -30,9 +42,19 @@
   color: yellow;
 }
 
+.Stats p.Stats__hed span {
+  font-size: 22px;
+}
+
 .Stats a {
   color: white;
   text-decoration: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .Stats h1 {
@@ -98,11 +120,14 @@
   .Stats__call h1 {
     font-size: 48px;
   }
-  .Stats__col.telephony {
-    display: block;
-  }
 
   .Stats__call p {
     max-width: 300px;
+  }
+}
+
+@media (min-width: 1020px) {
+  .Stats__col.telephony {
+    display: block;
   }
 }

@@ -5,12 +5,13 @@
 //-----------------------------------------
 
 import React, { Component, Fragment } from 'react';
+
 import { Howl } from 'howler';
 import classNames from 'classnames';
-import localForage from 'localforage';
 import { Route, withRouter } from 'react-router-dom';
 import { isSameDay } from 'date-fns';
 
+import * as db from './utils/db';
 import Nav from './components/Nav/Nav';
 import Marquee from './components/Marquee/Marquee';
 import Boot from './components/Boot/Boot';
@@ -62,7 +63,7 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      await this.setVisit();
+      await db.saveVisit();
     } catch (err) {
       console.log('ERror setting visit', err);
     }
@@ -91,53 +92,28 @@ class App extends Component {
     }
   }
 
-  // flag visit for next time
-  setVisit() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        // see when user last visited
-        const d = await localForage.getItem('ds_visits');
-        // if user never visited, record timestamp
-        if (!d) {
-          await localForage.setItem('ds_visits', [new Date()]);
-          // otherwise
-        } else {
-          //get last item from array
-          const lastVisit = d[d.length - 1];
-
-          // if last visit is today, do nothing
-          if (isSameDay(new Date(), lastVisit)) {
-            resolve();
-          }
-          // otherwise, record timestamp
-          else {
-            const newDates = d.concat(new Date());
-            await localForage.setItem('ds_visits', newDates);
-            resolve();
-          }
-        }
-      } catch (err) {
-        console.error('Error setting last visit in localstorage', err);
-        resolve();
-      }
-    });
-  }
-
   // Get main site data
   async fetchSiteData() {
-    let val = '';
-
-    //see if there was a last visit
+    const { calls } = dataJson;
     try {
-      val = await localForage.getItem('ds_visits');
+      const val = await db.getCompletedItems();
+      const date = await db.getLastVisit();
+      this.setState({
+        data: {
+          calls: calls.map(c => {
+            return Object.assign({}, c, {
+              hasCalled: val.includes(c.slug)
+            });
+          })
+        },
+        lastVisit: date
+      });
     } catch (err) {
-      console.error('Error fetching last visit');
+      this.setState({
+        data: dataJson,
+        lastVisit: new Date()
+      });
     }
-
-    this.setState({
-      data: dataJson,
-      lastVisit: val[val.length - 1] || new Date()
-    });
   }
 
   // Get all marquee text
@@ -203,6 +179,19 @@ class App extends Component {
     this.setState({ activeStory: story });
   };
 
+  flagAsComplete = slug => {
+    this.setState({
+      data: {
+        calls: this.state.data.calls.map(d => {
+          if (d.slug === slug) {
+            return Object.assign({}, d, { hasCalled: true });
+          }
+          return d;
+        })
+      }
+    });
+  };
+
   //-----------------------------------------
   // Render
   //
@@ -255,6 +244,7 @@ class App extends Component {
                 swapTexture={this.swapTexture}
                 setFlash={this.setFlash}
                 setGlobalActiveStory={this.setGlobalActiveStory}
+                flagAsComplete={this.flagAsComplete}
               />
             );
           }}
