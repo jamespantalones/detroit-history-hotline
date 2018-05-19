@@ -25,17 +25,7 @@ export default class Dashboard extends Component {
       <div className={cx}>
         <div className="Dashboard__flex">
           <div className="Dashboard__col">
-            <CallTable
-              calls={data.calls.slice(0, 10)}
-              handleMouseEnter={handleMouseEnter}
-            />
-          </div>
-          <div className="Dashboard__col col__r">
-            <CallTable
-              right={true}
-              calls={data.calls.slice(9)}
-              handleMouseEnter={handleMouseEnter}
-            />
+            <CallTable calls={data.calls} handleMouseEnter={handleMouseEnter} />
           </div>
         </div>
       </div>

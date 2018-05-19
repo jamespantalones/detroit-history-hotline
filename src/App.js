@@ -9,6 +9,7 @@ import { Howl } from 'howler';
 import classNames from 'classnames';
 import localForage from 'localforage';
 import { Route, withRouter } from 'react-router-dom';
+import { isSameDay } from 'date-fns';
 
 import Nav from './components/Nav/Nav';
 import Marquee from './components/Marquee/Marquee';
@@ -20,17 +21,19 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Radio from './components/Dashboard/Radio/Radio';
 import Stats from './components/Dashboard/Stats/Stats';
 
-import data from './data/data.json';
-import titleText from './data/title.txt';
+import dataJson from './data/data.json';
 import bootText from './data/boot.txt';
 import marqueeText from './data/marquee.txt';
-import topText from './data/top.txt';
-import phones from './images/phones.png';
-import bgAudioSrc from './audio/detroit_groove.mp3';
-import modemSrc from './audio/modem.wav';
-import dialToneSrc from './audio/dialtone.mp3';
+
+import tick from './audio/click_digi_02.mp3';
+import enter from './audio/digi_plink_on.mp3';
+import exit from './audio/digi_plink_off.mp3';
 
 import './App.css';
+
+const tickAudio = new Howl({ src: [tick], volume: 0.1 });
+const enterAudio = new Howl({ src: [enter], volume: 0.2 });
+const exitAudio = new Howl({ src: [exit], volume: 0.2 });
 
 //-----------------------------------------
 // Main
@@ -55,68 +58,95 @@ class App extends Component {
     };
     this.c = null;
     this.canvas = null;
-    this.bgAudio = null;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      await this.setVisit();
+    } catch (err) {
+      console.log('ERror setting visit', err);
+    }
+
     this.fetchSiteData();
     this.fetchMarquees();
     this.setAudio();
     this.canvas = new Canvas(this.c, this.backgroundLoadedCallback);
-
-    this.setVisit();
   }
 
   componentDidUpdate(oldProps) {
     const { pathname } = this.props.location;
-    console.log(pathname, oldProps.pathname);
+    // if we are landing on root page from another page
     if (oldProps.location.pathname !== pathname && pathname === '/') {
-      this.setState({
-        activeStory: null
-      });
+      this.setState(
+        {
+          activeStory: null
+        },
+        () => {
+          this.canvas.rootTexture();
+          exitAudio.play();
+        }
+      );
+    } else if (oldProps.location.pathname !== pathname && pathname !== '/') {
+      enterAudio.play();
     }
   }
 
   // flag visit for next time
-  async setVisit() {
-    try {
-      await localForage.setItem('ds_last_visit', new Date());
-    } catch (err) {
-      console.error('Error setting last visit in localstorage', err);
-    }
+  setVisit() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // see when user last visited
+        const d = await localForage.getItem('ds_visits');
+        // if user never visited, record timestamp
+        if (!d) {
+          await localForage.setItem('ds_visits', [new Date()]);
+          // otherwise
+        } else {
+          //get last item from array
+          const lastVisit = d[d.length - 1];
+
+          // if last visit is today, do nothing
+          if (isSameDay(new Date(), lastVisit)) {
+            resolve();
+          }
+          // otherwise, record timestamp
+          else {
+            const newDates = d.concat(new Date());
+            await localForage.setItem('ds_visits', newDates);
+            resolve();
+          }
+        }
+      } catch (err) {
+        console.error('Error setting last visit in localstorage', err);
+        resolve();
+      }
+    });
   }
 
   // Get main site data
   async fetchSiteData() {
     let val = '';
-    const res = await fetch(titleText);
-    const text = await res.text();
 
     //see if there was a last visit
     try {
-      val = await localForage.getItem('ds_last_visit');
+      val = await localForage.getItem('ds_visits');
     } catch (err) {
       console.error('Error fetching last visit');
     }
 
     this.setState({
-      data,
-      title: text,
-      lastVisit: val
+      data: dataJson,
+      lastVisit: val[val.length - 1] || new Date()
     });
   }
 
   // Get all marquee text
   async fetchMarquees() {
     const p1 = fetch(marqueeText);
-    const p2 = fetch(topText);
     const res = await p1;
-    const res2 = await p2;
     const text = await res.text();
-    const text2 = await res2.text();
     this.setState({
-      marqueeText: text,
-      topText: text2
+      marqueeText: text
     });
   }
 
@@ -148,27 +178,29 @@ class App extends Component {
     return function() {
       if (self.canvas) {
         self.canvas.swapTexture(item.image);
+        tickAudio.play();
       }
     };
   };
 
+  // show the phone texture
+  rootTexture = () => {
+    if (this.canvas) this.canvas.rootTexture();
+  };
+
+  // change shader background
   swapTexture = item => {
-    if (this.canvas) {
-      this.canvas.swapTexture(item.image);
-    }
+    if (this.canvas) this.canvas.swapTexture(item.image);
   };
 
+  // Glitch the shader
   setFlash = () => {
-    console.log('FHAS');
-    if (this.canvas) {
-      this.canvas.flashTexture();
-    }
+    if (this.canvas) this.canvas.flashTexture();
   };
 
+  // Set current active story
   setGlobalActiveStory = story => {
-    this.setState({
-      activeStory: story
-    });
+    this.setState({ activeStory: story });
   };
 
   //-----------------------------------------

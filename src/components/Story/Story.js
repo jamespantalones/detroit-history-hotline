@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 
-import { renderMarkdown } from '../../utils';
+import { renderMarkdown, getAudio } from '../../utils';
 import data from '../../data/data.json';
-import conversation from '../../audio/conversation.mp3';
 import Dialer from '../../audio/dialer';
+import config from '../../config';
 
 import './Story.css';
 
@@ -29,18 +29,29 @@ export default class Story extends Component {
     this.loop = null;
     this.audio = null;
   }
+
+  //-----------------------------------------
+  // On mount
+  //
   async componentDidMount() {
+    // get person based on url match
     const { person } = this.props.match.params;
 
+    // trigger glitch/flash on shader
     this.props.setFlash();
 
     // find person in data
     const target = data.calls.find(p => p.slug === person);
+
+    // set state based on person data, and run init on callback
     if (target) {
       this.setState({ story: target }, this.init);
     }
   }
 
+  //-----------------------------------------
+  // On unount, destroy audio
+  //
   componentWillUnmount() {
     if (this.audio !== null) {
       this.audio.stop();
@@ -53,11 +64,19 @@ export default class Story extends Component {
     }
   }
 
+  //-----------------------------------------
+  // Init
+  //
   init() {
     // make sure we are using right image texture
     this.props.swapTexture(this.state.story);
+
+    const audioFile = getAudio(this.state.story.id);
+    console.log('FILE', audioFile);
+
+    // set up new audio
     this.audio = new Howl({
-      src: [conversation],
+      src: [config.cdn + audioFile.src],
       volume: 0.5,
       onload: this.getMetaData,
       onpause: this.onPause,
@@ -98,6 +117,14 @@ export default class Story extends Component {
           dangerouslySetInnerHTML={renderMarkdown(this.state.story.text)}
         />
         <div className={'Story__stats'}>
+          <div
+            className="Story__stats_bg"
+            style={{
+              backgroundImage: `url(${config.cdn +
+                this.state.story.slug +
+                '.png'})`
+            }}
+          />
           <input
             type="range"
             min={0}
@@ -107,12 +134,11 @@ export default class Story extends Component {
             onChange={this.handleChange}
           />
           <p>
-            {' '}
             {this.state.currentTime.toFixed(2)}
             s / {this.state.duration}
-            s{' '}
-          </p>{' '}
-        </div>{' '}
+            s
+          </p>
+        </div>
       </div>
     );
   }

@@ -16,7 +16,7 @@ import createFragmentShader from './fragment';
 import createVertexShader from './vertex';
 import createUniforms from './uniforms';
 
-const images = [
+export const canvasImages = [
   {
     name: 'test',
     src: require('../images/test_card.png')
@@ -25,18 +25,7 @@ const images = [
     name: 'phones',
     src: require('../images/phones.jpg')
   },
-  {
-    name: 'terrence_parker_01',
-    src: require('../images/parker.png')
-  },
-  {
-    name: 'amp_fiddler',
-    src: require('../images/amp_fiddler.jpg')
-  },
-  {
-    name: 'brendan_gillen',
-    src: require('../images/brendan_gillen.jpg')
-  },
+
   {
     name: 'carl_craig',
     src: require('../images/carl_craig.jpg')
@@ -45,10 +34,7 @@ const images = [
     name: 'derrick_may',
     src: require('../images/derrick_may.jpg')
   },
-  {
-    name: 'dez_andres',
-    src: require('../images/dez_andres.jpg')
-  },
+
   {
     name: 'dj_holographic',
     src: require('../images/dj_holographic.jpg')
@@ -57,41 +43,28 @@ const images = [
     name: 'dj_minx',
     src: require('../images/dj_minx.jpg')
   },
-  {
-    name: 'erika',
-    src: require('../images/erika.jpg')
-  },
-  {
-    name: 'fit_siegal',
-    src: require('../images/fit_siegal.jpg')
-  },
+
   {
     name: 'jeff_mills',
     src: require('../images/jeff_mills.jpg')
   },
-  {
-    name: 'john_collins',
-    src: require('../images/john_collins.jpg')
-  },
-  {
-    name: 'k_hand',
-    src: require('../images/k_hand.jpg')
-  },
-  {
-    name: 'moodyman',
-    src: require('../images/moodyman.jpg')
-  },
+
   {
     name: 'robert_hood',
     src: require('../images/robert_hood.jpg')
   },
-  {
-    name: 'stacey_hotwaxx_hale',
-    src: require('../images/stacey_hotwaxx_hale.jpg')
-  },
+
   {
     name: 'theo_parrish',
     src: require('../images/theo_parrish.jpg')
+  },
+  {
+    name: 'leon_ware',
+    src: require('../images/leon_ware.jpg')
+  },
+  {
+    name: 'waajeed',
+    src: require('../images/waajeed.jpg')
   }
 ];
 
@@ -177,7 +150,7 @@ export default class Canvas {
   loadMultiTextures() {
     return new Promise(async (resolve, reject) => {
       try {
-        const promises = images.map(i => this.loadSingleTexture(i));
+        const promises = canvasImages.map(i => this.loadSingleTexture(i));
         this.images = await Promise.all(promises);
         resolve(this.images);
       } catch (err) {
@@ -197,8 +170,20 @@ export default class Canvas {
         this.material.uniforms.u_texture.value = t.texture;
       } else {
         const { texture } = this.images.find(i => i.name === 'phones');
-        console.log('TEXTURE', texture);
         this.material.uniforms.u_texture.value = texture;
+      }
+    }
+  };
+
+  rootTexture = () => {
+    if (this.images.length === 0) {
+      setTimeout(() => {
+        this.rootTexture();
+      }, 100);
+    } else {
+      const t = this.images.find(i => i.name === 'phones');
+      if (t && t.texture) {
+        this.material.uniforms.u_texture.value = t.texture;
       }
     }
   };
@@ -224,7 +209,6 @@ export default class Canvas {
     const t = this.images.find(i => i.name === 'phones');
 
     const texture = t.texture;
-    console.log('IMAGS', texture);
 
     texture.wrapS = texture.wrapT = RepeatWrapping;
     this.material.uniforms.u_texture.value = texture;

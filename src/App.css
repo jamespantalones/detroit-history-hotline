@@ -11,7 +11,6 @@
 
 .App h1,
 .App h2 {
-  font-weight: normal;
   letter-spacing: 0.05rem;
   margin: 0;
 }
@@ -25,10 +24,6 @@
   height: 40px;
   right: 0;
   z-index: 5;
-}
-
-.App__marquee:hover {
-  transform: scaleX(-1);
 }
 
 .App__marquee p {

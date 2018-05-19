@@ -28,4 +28,14 @@
 .marquee__inner .marquee p {
   display: inline-block;
   margin: 0 20px;
+  font-family: Helvetica, sans-serif;
+  color: white;
+  font-size: 16px;
+  transform: scaleY(1.5);
+  letter-spacing: 0;
+  line-height: 50px;
+}
+
+.marquee p a {
+  color: yellow;
 }

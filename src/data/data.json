@@ -1,96 +1,28 @@
 {
-  "calls": [{
-      "id": 0,
-      "name": "Terrence Parker",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "terrence_parker_01",
-      "slug": "terrence_parker",
-      "text": "Just some basic text about Terrence Parker"
-    },
+  "calls": [
+
     {
       "id": 1,
-      "name": "Amp Fiddler",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "amp_fiddler",
-      "slug": "amp_fiddler",
-      "text": "Just some basic text about Amp Fiddler"
-    },
-    {
-      "id": 2,
-      "name": "Brendan Gillen",
-      "audio": "some file",
-      "hasCalled": true,
-      "image": "brendan_gillen",
-      "slug": "brendan_gillen",
-      "text": "Just some basic text about Brendan Gillen"
-    },
-    {
-      "id": 3,
-      "name": "Carl Craig",
-      "audio": "some file",
-      "hasCalled": true,
-      "image": "carl_craig",
-      "slug": "carl_craig",
-      "text": "Just some basic text about Terrence Parker"
-    },
-    {
-      "id": 4,
-      "name": "Derrick May",
-      "audio": "some file",
-      "hasCalled": true,
-      "image": "derrick_may",
-      "slug": "derrick_may",
-      "text": "Just some basic text about Terrence Parker"
-    },
-    {
-      "id": 5,
-      "name": "Dez Andres",
-      "audio": "some file",
-      "hasCalled": true,
-      "image": "dez_andres",
-      "slug": "dez_andres",
-      "text": "Just some basic text about Terrence Parker"
-    },
-    {
-      "id": 6,
-      "name": "DJ Holographic",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "dj_holographic",
-      "slug": "dj_holographic",
-      "text": "Some text"
-    },
-    {
-      "id": 7,
       "name": "DJ Minx",
       "audio": "some file",
       "hasCalled": false,
       "image": "dj_minx",
       "slug": "dj_minx",
-      "text": "Some text"
+      "text": "DJ Minx’s roots in Detroit house music run deep. The Motor City’s “First Lady of Wax” counts the city’s foundational Music Institute club as her inspiration for DJing, a skill she’d go on to ply during her residency at Hamtramck’s famed Club Motor, as the host of WGPR’s Deep Space Radio, at the inaugural Detroit Electronic Music Festival in 2000 and later at gigs from Berlin to Tokyo and back. After founding the all-female DJ collective Women On Wax in 1996, she extended the name to her own label in 2001, seeking an outlet for her own glittering productions (including 2003’s minimalist “A Walk In the Park,” which was later rereleased by Richie Hawtin’s Minus imprint) and those by unsung talent from her hometown."
     },
+
     {
-      "id": 8,
-      "name": "Erika",
+      "id": 2,
+      "name": "Derrick May",
       "audio": "some file",
-      "hasCalled": false,
-      "image": "erika",
-      "slug": "erika",
-      "text": "Some text"
+      "hasCalled": true,
+      "image": "derrick_may",
+      "slug": "derrick_may",
+      "text": "To be a living legend is not an easy game to play. Derrick May, however, has played it quite well for more than 30 years. As one third of the Belleville Three (with Juan Atkins and Kevin Saunderson) Derrick May helped create the beast named techno that longed for a beauty called soul — he ran the groundbreaking Transmat label and produced under a plethora of names, most notably Rhythim Is Rhythim, whose “Strings Of Life” is the quintessential track of that era. He is responsible for an armada of highly influential tunes that mix and mingle industrial melancholy and romantic futurism. Unparalleled and universally valid… it is what it is."
     },
+
     {
-      "id": 9,
-      "name": "FIT Siegal",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "fit_siegal",
-      "slug": "fit_siegal",
-      "text": "Some text"
-    },
-    {
-      "id": 10,
+      "id": 3,
       "name": "Jeff Mills",
       "audio": "some file",
       "hasCalled": false,
@@ -98,59 +30,66 @@
       "slug": "jeff_mills",
       "text": "Some text"
     },
+
     {
-      "id": 11,
-      "name": "John Collins",
+      "id": 4,
+      "name": "Carl Craig",
       "audio": "some file",
-      "hasCalled": false,
-      "image": "john_collins",
-      "slug": "john_collins",
-      "text": "Some text"
+      "hasCalled": true,
+      "image": "carl_craig",
+      "slug": "carl_craig",
+      "text": "In years to come, techno will be poured over and historicised and whatever the fate of the brave new world’s music, a handful of names will have been immortalised through it. Carl Craig’s is one. Craig started out as Derrick May’s chief assistant at Transmat Records in Detroit and London. In 1989 he released his first single Elements as Psyche on Transmat and became what can be called the spearhead of the second wave of Detroit techno. In the 1990s Carl Craig released house, techno and electronic jazz under different monikers including 69, Innerzone Orchestra or Paperclip People. In addition his productions can be heard on labels including KMS, Open, Mo’Wax and Retroactive. Soon after his first steps in the world of techno he founded his own label Planet E. Today Planet E is one of the most well-known and respected labels for electronic music of all genres. Carl’s work with Moritz von Oswald and Francesco Tristano as well as remixes for everyone from Theo Parrish to DFA reaffirm his status as an exceptional producer, proving he is far from being a case for the history books."
     },
+
     {
-      "id": 12,
-      "name": "K-Hand",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "k_hand",
-      "slug": "k_hand",
-      "text": "Some text"
-    },
-    {
-      "id": 13,
-      "name": "Moodyman",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "moodyman",
-      "slug": "moodyman",
-      "text": "Some text"
-    },
-    {
-      "id": 14,
+      "id": 5,
       "name": "Robert Hood",
       "audio": "some file",
       "hasCalled": false,
       "image": "robert_hood",
       "slug": "robert_hood",
-      "text": "Some text"
+      "text": "In an era where credit is rarely given when due, a lot of today’s so-called ‘minimal’ enthusiasts may not actually be familiar with its creator: the magnificent and innovative Robert Hood. Raised primarily on Motown in Detroit, Robert Hood’s family was enveloped in music: his mother recorded a 45” locally, his uncle managed jazz and r&b bands, his grandmother’s first cousin was Berry Gordy, his father was a jazz musician. Robert followed his father’s footsteps at a young age by picking up the trumpet in the school band. But, distracted by youth, it wasn’t long before he swapped the trumpet for vinyl, obsessively focussing on the arrangements, musicality and instrumentation of the records he cherished. His zealous interest in production guided him to a pawn shop, where he picked up some basic equipment and began recording demos. Eventually, a fortuitous introduction to a well-connected musician, Mike Clark (aka Agent X), led to him eventually passing on a demo to a key player in underground Detroit, Mike Banks. With UR, Robert forged a path for himself, creating a simple yet powerful sound that fully encompassed the Detroit ethos, but also pushed unparalleled levels of imagination. Many seminal UR releases later, shortly after the X-102 project, Jeff Mills and Robert decided to set up Axis, which was “more of a housey, abstract sound that was different from the experimental techno from UR, and that was different from the Detroit Metroplex and Transmat/KMS sound. It was more of a grounded sound.” Hood and Mills hopped cross-country to NYC in 1992, the home for their brilliant H&M productions. Robert’s own ground-shattering Minimal Nation LP hit the electronic music world with unprecedented explosion – it is credited today as a turning point for techno. Shortly after, Hood took a step in an entirely different direction, with M-Plant in 1994. Still here today, the man records music, produces remixes and flexes his record mixing skills for clubs like London’s Fabric – always blessed with a distinct and very own sound."
     },
+
     {
-      "id": 15,
-      "name": "Stacey Hotwaxx Hale",
-      "audio": "some file",
-      "hasCalled": false,
-      "image": "stacey_hotwaxx_hale",
-      "slug": "stacey_hotwaxx_hale",
-      "text": "Some text"
-    },
-    {
-      "id": 16,
+      "id": 6,
       "name": "Theo Parrish",
       "audio": "some file",
       "hasCalled": false,
       "image": "theo_parrish",
       "slug": "theo_parrish",
       "text": "Some text"
+    },
+
+    {
+      "id": 7,
+      "name": "DJ Holographic",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "dj_holographic",
+      "slug": "dj_holographic",
+      "text": "DJ Holographic is a tireless champion of Detroit’s LGBTQ community and its musical past, present and future. Growing up on her parents’ Soul II Soul and Chaka Khan records, DJ Holographic, AKA Ariel Corley, immersed herself in electronic music while attending college in Ann Arbor. She then combined her encyclopedic knowledge of funk, R&B, house and techno with a fierce willingness to learn. A resident at underground gay afterhours Bak Dør – a party for “the misfits who don’t want to be classified,” she says – DJ Holographic continues to cultivate a devoted fanbase with her distinctive voice and single-minded dedication to the craft."
+    },
+
+    {
+      "id": 8,
+      "name": "Leon Ware",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "leon_ware",
+      "slug": "leon_ware",
+      "text": "Some text"
+    },
+
+    {
+      "id": 9,
+      "name": "Waajeed",
+      "audio": "some file",
+      "hasCalled": false,
+      "image": "waajeed",
+      "slug": "waajeed",
+      "text": "Whether this Detroit native is DJ-ing, producing music, editing slick videos or pulling it all under one coherent creative vision, Waajeed certainly doesn’t rest on his laurels. Starting out as the DJ for the seminal Slum Village, Waajeed is one of those DJs who understands that hip hop is a gateway to all styles, and as such he’s a champion of music in all its many forms. Over the years Jeedo’s projects have included the spaced-out soul of the Platinum Pied Pipers, the Bling47 label and home to artists such as Tiombe Lockhart, Jay Dee and Waajeed himself, as well as more recently the Electric Street Orchestra and his new label Dirt Tech Reck. He’s lent his remixing prowess to countless artists, from chart toppers like John Legend and Roy Ayers, to underground stalwarts like Domu and DJ Mitsu The Beats. Whatever the project, his love and commitment to music is clear for all to see – particularly as evidenced by his Bling47 Breaks series, which explored and de-mystified the legend of Jay Dee and many of the samples he flipped. Wherever he’s headed next, it will always be uniquely Jeedo."
     }
+
   ]
 }

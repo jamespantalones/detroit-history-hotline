@@ -29,7 +29,7 @@ function CallTable({ active, calls, handleMouseEnter, right }) {
                 onMouseEnter={handleMouseEnter(item)}
                 onMouseLeave={handleMouseEnter('')}
               >
-                <td>{item.id}</td>
+                <td>#{item.id}</td>
 
                 <td>{item.name}</td>
                 <td>{item.hasCalled ? '*' : 'x'}</td>
