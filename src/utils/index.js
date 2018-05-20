@@ -30,6 +30,21 @@ export const renderHTML = text => {
   };
 };
 
+//-----------------------------------------
+// Check for WebGL presence
+//
+export const checkWebGL = () => {
+  const canvas = document.createElement('canvas');
+  const gl =
+    canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+  if (gl && gl instanceof WebGLRenderingContext) {
+    return true;
+  }
+
+  return false;
+};
+
 export const getAudio = ext => {
   const d = parseInt(ext, 10);
   switch (d) {

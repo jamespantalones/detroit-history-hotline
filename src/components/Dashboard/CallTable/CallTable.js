@@ -12,7 +12,7 @@ function CallTable({ active, calls, handleMouseEnter }) {
 
   const b = classNames({
     [styles.Group]: true,
-    [styles.bottom]: true
+    [styles.Bottom]: true
   });
   const r = classNames({
     [styles.Row]: true,

@@ -1,6 +1,5 @@
 // Stats
 import React, { Component } from 'react';
-import classNames from 'classnames';
 
 import { format } from 'date-fns';
 import styles from './Stats.css';
@@ -48,9 +47,6 @@ export default class Stats extends Component {
   //
   render() {
     const { lastVisit } = this.props;
-    const cx = classNames({
-      [styles.Breadcrumbs]: this.props.activeStory !== null
-    });
     return (
       <div className={styles.Stats}>
         <div className={styles.Flex}>

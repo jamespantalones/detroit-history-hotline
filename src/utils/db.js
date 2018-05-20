@@ -18,7 +18,14 @@ export const saveVisit = () => {
 
       // if user never visited, record timestamp
       if (!d) {
-        await localForage.setItem('ds_visits', [new Date()]);
+        try {
+          await localForage.setItem('ds_visits', [new Date()]);
+          resolve();
+        } catch (err) {
+          console.error('Error setting new visit', err);
+          reject(err);
+        }
+
         // otherwise
       } else {
         //get last item from array

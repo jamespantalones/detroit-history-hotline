@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import { Route, withRouter } from 'react-router-dom';
 
 import * as db from './utils/db';
+import { checkWebGL } from './utils';
 import Nav from './components/Nav/Nav';
 import Marquee from './components/Marquee/Marquee';
 import Boot from './components/Boot/Boot';
@@ -67,7 +68,11 @@ class App extends Component {
     this.fetchSiteData();
     this.fetchMarquees();
     this.setAudio();
-    this.canvas = new Canvas(this.c, this.backgroundLoadedCallback);
+
+    // if webgl present, run it
+    if (checkWebGL()) {
+      this.canvas = new Canvas(this.c, this.backgroundLoadedCallback);
+    }
   }
 
   componentDidUpdate(oldProps) {
@@ -79,7 +84,9 @@ class App extends Component {
           activeStory: null
         },
         () => {
-          this.canvas.rootTexture();
+          if (this.canvas) {
+            this.canvas.rootTexture();
+          }
           exitAudio.play();
         }
       );
