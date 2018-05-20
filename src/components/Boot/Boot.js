@@ -2,30 +2,41 @@
 // List
 //
 
-import React, { Component } from 'react';
+// @flow
+
+import * as React from 'react';
 import classNames from 'classnames';
 
 import bootText from '../../data/boot.txt';
 import styles from './Boot.css';
 
-export default class List extends Component {
-  constructor() {
-    super();
-    this.state = {
-      textArray: [],
-      activeText: [],
-      index: 0,
-      finished: false
-    };
+type Props = {
+  bootFinished: boolean,
+  onFinishedBoot: () => void
+};
 
-    this.timer = null;
-  }
+type State = {
+  textArray: Array<string>,
+  activeText: Array<string>,
+  index: number,
+  finished: boolean
+};
 
-  async componentDidMount() {
+export default class List extends React.Component<Props, State> {
+  state = {
+    textArray: [],
+    activeText: [],
+    index: 0,
+    finished: false
+  };
+
+  timer: TimeoutID;
+
+  async componentDidMount(): Promise<void> {
     const res = await fetch(bootText);
     const text = await res.text();
 
-    const s = text.split('\n');
+    const s: Array<string> = text.split('\n');
 
     this.setState(
       {
@@ -35,7 +46,7 @@ export default class List extends Component {
     );
   }
 
-  async start() {
+  async start(): Promise<void> {
     const { index, textArray, activeText } = this.state;
     this.timer = setTimeout(async () => {
       if (index < textArray.length) {
@@ -54,8 +65,7 @@ export default class List extends Component {
 
   render() {
     const c = classNames({
-      [styles.Boot]: true,
-      [styles.full]: this.state.full
+      [styles.Boot]: true
     });
 
     const cy = classNames({

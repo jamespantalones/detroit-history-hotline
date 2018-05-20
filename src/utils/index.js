@@ -6,6 +6,22 @@ import marked from 'marked';
 
 // @flow
 
+const SOCIAL_OPTS = [
+  'toobar=no',
+  'width=450',
+  'height=400',
+  'directories=no',
+  'status=no',
+  'scrollbars=yes',
+  'resize=no',
+  'menubar=no',
+  'top=200',
+  'left=200'
+].join(',');
+
+const TWEET =
+  'Dial 313-986-4606 to hear artists share their stories on @RBMA’s #DetroitHistoryHotline';
+
 //-----------------------------------------
 // Defer work
 //
@@ -48,4 +64,33 @@ export const checkWebGL = (): boolean => {
   }
 
   return false;
+};
+
+export const loadThree = (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = err => reject(err);
+
+    script.src =
+      'https://ajax.googleapis.com/ajax/libs/threejs/r84/three.min.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+  });
+};
+
+export const shareFB = (): void => {
+  const u = encodeURIComponent(window.location.href);
+
+  window.open(
+    `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+    'Facebook',
+    SOCIAL_OPTS
+  );
+};
+
+export const shareTW = (): void => {
+  const u = encodeURIComponent(`${TWEET} ${window.location.href}`);
+  window.open(`https://twitter.com/home?status=${u}`, 'Twitter', SOCIAL_OPTS);
 };

@@ -3,13 +3,25 @@
 // Main Dashboard
 //
 //-----------------------------------------
-import React, { Component } from 'react';
+
+// @flow
+
+import * as React from 'react';
 import classNames from 'classnames';
 import CallTable from './CallTable/CallTable';
 
 import styles from './Dashboard.css';
 
-export default class Dashboard extends Component {
+import type { ItemData } from '../../types';
+
+type Props = {
+  bootFinished: boolean,
+  setFlash: () => void,
+  data: Array<ItemData>,
+  handleMouseEnter: () => void
+};
+
+export default class Dashboard extends React.Component<Props> {
   componentDidMount() {
     this.props.setFlash();
   }

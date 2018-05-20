@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import { Route, withRouter } from 'react-router-dom';
 
 import * as db from './utils/db';
-import { checkWebGL } from './utils';
+import { checkWebGL, loadThree } from './utils';
 import Nav from './components/Nav/Nav';
 import Marquee from './components/Marquee/Marquee';
 import Boot from './components/Boot/Boot';
@@ -21,10 +21,10 @@ import Canvas from './scene/Canvas';
 import Story from './components/Story/Story';
 import Dashboard from './components/Dashboard/Dashboard';
 import Stats from './components/Dashboard/Stats/Stats';
-
+import Social from './components/Social/Social';
 import data from './data';
-import marqueeText from './data/marquee.txt';
 
+import marqueeText from './data/marquee.txt';
 import tick from './audio/click_digi_02.mp3';
 import enter from './audio/click_ping.mp3';
 import exit from './audio/click_plink.mp3';
@@ -78,11 +78,21 @@ class App extends React.Component<Props, State> {
 
     this.fetchSiteData();
     this.fetchMarquees();
-    this.setAudio();
 
     // if webgl present, run it
     if (checkWebGL()) {
-      this.canvas = new Canvas(this.c, this.backgroundLoadedCallback);
+      try {
+        await loadThree();
+        if (window.THREE) {
+          this.canvas = new Canvas(
+            window.THREE,
+            this.c,
+            this.backgroundLoadedCallback
+          );
+        }
+      } catch (err) {
+        console.warn('Error loading THREE.js, skipping');
+      }
     }
   }
 
@@ -109,7 +119,7 @@ class App extends React.Component<Props, State> {
   // Get main site data
   async fetchSiteData() {
     try {
-      const val = await db.getCompletedItems();
+      const val: Array<ItemData> = await db.getCompletedItems();
       const date = await db.getLastVisit();
       this.setState({
         data: data.map(c =>
@@ -127,8 +137,7 @@ class App extends React.Component<Props, State> {
 
   // Get all marquee text
   async fetchMarquees() {
-    const p1 = fetch(marqueeText);
-    const res = await p1;
+    const res = await fetch(marqueeText);
     const text = await res.text();
     this.setState({
       marqueeText: text
@@ -136,14 +145,9 @@ class App extends React.Component<Props, State> {
   }
 
   //-----------------------------------------
-  // Handle main audio setup
-  //
-  setAudio() {}
-
-  //-----------------------------------------
   // Main BG images loaded
   //
-  backgroundLoadedCallback = () => {
+  backgroundLoadedCallback = (): void => {
     this.setState({
       backgroundLoaded: true
     });
@@ -152,13 +156,13 @@ class App extends React.Component<Props, State> {
   //-----------------------------------------
   // Boot is done
   //
-  onFinishedBoot = () => {
+  onFinishedBoot = (): void => {
     this.setState({
       bootFinished: true
     });
   };
 
-  handleMouseEnter = item => {
+  handleMouseEnter = (item: ItemData): (() => void) => {
     const self = this;
     return function() {
       if (self.canvas) {
@@ -169,26 +173,26 @@ class App extends React.Component<Props, State> {
   };
 
   // show the phone texture
-  rootTexture = () => {
+  rootTexture = (): void => {
     if (this.canvas) this.canvas.rootTexture();
   };
 
   // change shader background
-  swapTexture = item => {
+  swapTexture = (item: ItemData): void => {
     if (this.canvas) this.canvas.swapTexture(item.slug);
   };
 
   // Glitch the shader
-  setFlash = () => {
+  setFlash = (): void => {
     if (this.canvas) this.canvas.flashTexture();
   };
 
   // Set current active story
-  setGlobalActiveStory = story => {
+  setGlobalActiveStory = (story: ItemData): void => {
     this.setState({ activeStory: story });
   };
 
-  flagAsComplete = slug => {
+  flagAsComplete = (slug: string) => {
     this.setState({
       data: this.state.data.map(d => {
         if (d.slug === slug) {
@@ -217,7 +221,7 @@ class App extends React.Component<Props, State> {
       [styles.BackgroundLoaded]: this.state.backgroundLoaded
     });
 
-    const cleanedData = data.filter(d => d.id !== 0);
+    const cleanedData: Array<ItemData> = data.filter(d => d.id !== 0);
 
     return (
       <div className={styles.App}>
@@ -227,6 +231,7 @@ class App extends React.Component<Props, State> {
           <div ref={c => (this.c = c)} />{' '}
         </div>
         <Stats lastVisit={lastVisit} activeStory={activeStory} />
+
         <Route
           exact
           path="/"
@@ -249,6 +254,7 @@ class App extends React.Component<Props, State> {
             );
           }}
         />
+
         <Route
           path="/stories/:person"
           render={props => {
@@ -263,6 +269,9 @@ class App extends React.Component<Props, State> {
             );
           }}
         />
+
+        <Social />
+
         <div className={styles.Marquee}>
           <Marquee text={marqueeText} />
         </div>

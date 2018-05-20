@@ -4,14 +4,15 @@ import createFragmentShader from './fragment';
 import createVertexShader from './vertex';
 import createUniforms from './uniforms';
 import data from '../data';
+import { deferWork } from '../utils';
 
-const THREE = window.THREE;
+let THREE = null;
 
 //-----------------------------------------
 // Main
 //
 export default class Canvas {
-  constructor(el, callback) {
+  constructor(lib, el, callback) {
     this.parent = el;
     this.callback = callback;
     this.renderer = null;
@@ -23,6 +24,9 @@ export default class Canvas {
     this.images = [];
     this.isOne = true;
     this.flash_val = 0.0;
+
+    THREE = lib;
+
     this.init();
   }
 
@@ -50,14 +54,16 @@ export default class Canvas {
   }
 
   onResize = ev => {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    deferWork(() => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
 
-    this.camera.aspect = w / h;
-    this.camera.updateProjectionMatrix();
+      this.camera.aspect = w / h;
+      this.camera.updateProjectionMatrix();
 
-    this.material.uniforms.u_resolution.value = new THREE.Vector2(w, h);
-    this.renderer.setSize(w, h);
+      this.material.uniforms.u_resolution.value = new THREE.Vector2(w, h);
+      this.renderer.setSize(w, h);
+    });
   };
 
   addRenderer() {
@@ -81,7 +87,6 @@ export default class Canvas {
 
   loadSingleTexture(item) {
     return new Promise((resolve, reject) => {
-      console.log('ITEM', item);
       const loader = new THREE.TextureLoader();
 
       loader.load(
@@ -108,7 +113,6 @@ export default class Canvas {
       try {
         const promises = data.map(i => this.loadSingleTexture(i));
         this.images = await Promise.all(promises);
-        console.log(this.images);
         resolve(this.images);
       } catch (err) {
         reject(err);
@@ -161,7 +165,7 @@ export default class Canvas {
     const geometry = new THREE.PlaneBufferGeometry(5, 2, 128, 128);
 
     this.material = new THREE.ShaderMaterial({
-      uniforms: createUniforms,
+      uniforms: createUniforms(THREE),
       vertexShader: createVertexShader,
       fragmentShader: createFragmentShader
     });

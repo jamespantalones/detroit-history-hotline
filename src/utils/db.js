@@ -7,6 +7,7 @@
 // @flow
 import localForage from 'localforage';
 import { isSameDay } from 'date-fns';
+import type { ItemData } from '../types';
 
 //-----------------------------------------
 // Save new visit
@@ -70,7 +71,7 @@ export const getLastVisit = (): Promise<Date> => {
 //-----------------------------------------
 // Get completed items
 //
-export const getCompletedItems = (): Promise<void> => {
+export const getCompletedItems = (): Promise<Array<any>> => {
   return new Promise(async (resolve, reject) => {
     try {
       const val = await localForage.getItem('ds_tracks');
@@ -80,10 +81,10 @@ export const getCompletedItems = (): Promise<void> => {
 
       try {
         await localForage.setItem('ds_tracks', []);
-        resolve();
+        resolve([]);
       } catch (err) {
         console.error('Error setting empty array on local storage', err);
-        resolve();
+        resolve([]);
       }
     } catch (err) {
       reject(err);

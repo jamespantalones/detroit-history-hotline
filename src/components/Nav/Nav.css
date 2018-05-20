@@ -3,7 +3,7 @@
   width: 100%;
   height: 50px;
   background: black;
-  color: teal;
+  color: yellow;
   z-index: 9;
   text-align: center;
   padding: 0.625em;
@@ -31,7 +31,7 @@
   font-style: italic;
   text-transform: uppercase;
   a {
-    color: teal;
+    color: inherit;
     text-decoration: none;
     display: inline-block;
     &:hover {
