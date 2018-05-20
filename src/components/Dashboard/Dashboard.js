@@ -23,7 +23,7 @@ export default class Dashboard extends Component {
 
     return (
       <div className={cx}>
-        <CallTable calls={data.calls} handleMouseEnter={handleMouseEnter} />
+        <CallTable calls={data} handleMouseEnter={handleMouseEnter} />
       </div>
     );
   }

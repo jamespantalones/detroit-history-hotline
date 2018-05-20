@@ -3,64 +3,9 @@
 import createFragmentShader from './fragment';
 import createVertexShader from './vertex';
 import createUniforms from './uniforms';
+import data from '../data';
 
 const THREE = window.THREE;
-
-export const canvasImages = [
-  {
-    name: 'test',
-    src: require('../images/test_card.png')
-  },
-  {
-    name: 'phones',
-    src: require('../images/phones.jpg')
-  },
-
-  {
-    name: 'carl_craig',
-    src: require('../images/carl_craig.jpg')
-  },
-  {
-    name: 'derrick_may',
-    src: require('../images/derrick_may.jpg')
-  },
-
-  {
-    name: 'dj_holographic',
-    src: require('../images/dj_holographic.jpg')
-  },
-  {
-    name: 'dj_minx',
-    src: require('../images/dj_minx.jpg')
-  },
-
-  {
-    name: 'jeff_mills',
-    src: require('../images/jeff_mills.jpg')
-  },
-
-  {
-    name: 'robert_hood',
-    src: require('../images/robert_hood.jpg')
-  },
-
-  {
-    name: 'theo_parrish',
-    src: require('../images/theo_parrish.jpg')
-  },
-  {
-    name: 'leon_ware',
-    src: require('../images/leon_ware.jpg')
-  },
-  {
-    name: 'waajeed',
-    src: require('../images/waajeed.jpg')
-  },
-  {
-    name: 'erika',
-    src: require('../images/erika.jpg')
-  }
-];
 
 //-----------------------------------------
 // Main
@@ -134,32 +79,36 @@ export default class Canvas {
     this.camera.position.z = 2;
   }
 
-  loadSingleTexture(img) {
+  loadSingleTexture(item) {
     return new Promise((resolve, reject) => {
+      console.log('ITEM', item);
       const loader = new THREE.TextureLoader();
 
       loader.load(
-        img.src,
+        item.image,
         texture => {
           resolve(
-            Object.assign({}, img, {
+            Object.assign({}, item, {
               texture
             })
           );
         },
         undefined,
         err => {
+          console.warn('Error loading image', item.image);
           reject(err);
         }
       );
     });
   }
 
+  // Load all textures
   loadMultiTextures() {
     return new Promise(async (resolve, reject) => {
       try {
-        const promises = canvasImages.map(i => this.loadSingleTexture(i));
+        const promises = data.map(i => this.loadSingleTexture(i));
         this.images = await Promise.all(promises);
+        console.log(this.images);
         resolve(this.images);
       } catch (err) {
         reject(err);
@@ -167,17 +116,22 @@ export default class Canvas {
     });
   }
 
-  swapTexture = name => {
+  swapTexture = slug => {
     if (this.images.length === 0) {
       setTimeout(() => {
-        this.swapTexture(name);
+        this.swapTexture(slug);
       }, 100);
     } else {
-      const t = this.images.find(i => i.name === name);
+      if (!slug) {
+        const { texture } = this.images.find(i => i.slug === 'default');
+        this.material.uniforms.u_texture.value = texture;
+      }
+
+      const t = this.images.find(i => i.slug === slug);
       if (t && t.texture) {
         this.material.uniforms.u_texture.value = t.texture;
       } else {
-        const { texture } = this.images.find(i => i.name === 'phones');
+        const { texture } = this.images.find(i => i.slug === 'default');
         this.material.uniforms.u_texture.value = texture;
       }
     }
@@ -189,7 +143,7 @@ export default class Canvas {
         this.rootTexture();
       }, 100);
     } else {
-      const t = this.images.find(i => i.name === 'phones');
+      const t = this.images.find(i => i.name === 'default');
       if (t && t.texture) {
         this.material.uniforms.u_texture.value = t.texture;
       }
@@ -212,7 +166,7 @@ export default class Canvas {
       fragmentShader: createFragmentShader
     });
 
-    const t = this.images.find(i => i.name === 'phones');
+    const t = this.images.find(i => i.name === 'default');
 
     const texture = t.texture;
 

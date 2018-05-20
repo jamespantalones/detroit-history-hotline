@@ -4,13 +4,14 @@
 //
 //-----------------------------------------
 
+// @flow
 import localForage from 'localforage';
 import { isSameDay } from 'date-fns';
 
 //-----------------------------------------
 // Save new visit
 //
-export const saveVisit = () => {
+export const saveVisit = (): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     try {
       // see when user last visited
@@ -51,7 +52,7 @@ export const saveVisit = () => {
 //-----------------------------------------
 // Get last visit
 //
-export const getLastVisit = () => {
+export const getLastVisit = (): Promise<Date> => {
   return new Promise(async (resolve, reject) => {
     try {
       const val = await localForage.getItem('ds_visits');
@@ -59,7 +60,7 @@ export const getLastVisit = () => {
         return resolve(val[val.length - 1]);
       }
 
-      return resolve();
+      return resolve(new Date());
     } catch (err) {
       reject(err);
     }
@@ -69,7 +70,7 @@ export const getLastVisit = () => {
 //-----------------------------------------
 // Get completed items
 //
-export const getCompletedItems = () => {
+export const getCompletedItems = (): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     try {
       const val = await localForage.getItem('ds_tracks');
@@ -90,7 +91,7 @@ export const getCompletedItems = () => {
   });
 };
 
-export const saveCompletedItem = name => {
+export const saveCompletedItem = (name: string): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     try {
       const items = await localForage.getItem('ds_tracks');

@@ -99,6 +99,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "flow-bin": "^0.72.0",
     "postcss-nested": "^3.0.0",
     "webpack-bundle-analyzer": "^2.12.0"
   }

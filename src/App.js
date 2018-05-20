@@ -4,7 +4,9 @@
 //
 //-----------------------------------------
 
-import React, { Component, Fragment } from 'react';
+// @flow
+
+import * as React from 'react';
 
 import { Howl } from 'howler';
 import classNames from 'classnames';
@@ -20,43 +22,52 @@ import Story from './components/Story/Story';
 import Dashboard from './components/Dashboard/Dashboard';
 import Stats from './components/Dashboard/Stats/Stats';
 
-import dataJson from './data/data.json';
+import data from './data';
 import marqueeText from './data/marquee.txt';
 
 import tick from './audio/click_digi_02.mp3';
-import enter from './audio/digi_plink_on.mp3';
-import exit from './audio/digi_plink_off.mp3';
+import enter from './audio/click_ping.mp3';
+import exit from './audio/click_plink.mp3';
 
 import styles from './App.css';
 
+import type { ItemData } from './types';
+
 // SFX for main page
-const tickAudio = new Howl({ src: [tick], volume: 0.1 });
-const enterAudio = new Howl({ src: [enter], volume: 0.2 });
-const exitAudio = new Howl({ src: [exit], volume: 0.2 });
+const tickAudio: any = new Howl({ src: [tick], volume: 0.1 });
+const enterAudio: any = new Howl({ src: [enter], volume: 0.2 });
+const exitAudio: any = new Howl({ src: [exit], volume: 0.2 });
+
+type Props = {
+  location: any
+};
+
+type State = {
+  marqueeText: string,
+  data: Array<ItemData>,
+  activeStory: ?ItemData,
+  bootFinished: boolean,
+  backgroundLoaded: boolean,
+  lastVisit: any
+};
 
 //-----------------------------------------
 // Main
 //
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      // bottom marquee text
-      marqueeText: '',
-      // top marquee text
-      topText: '',
-      // person data
-      data: {
-        calls: []
-      },
-      activeStory: null,
-      bootFinished: false,
-      backgroundLoaded: false,
-      lastVisit: ''
-    };
-    this.c = null;
-    this.canvas = null;
-  }
+class App extends React.Component<Props, State> {
+  state = {
+    marqueeText: '',
+
+    // person data
+    data: [],
+    activeStory: null,
+    bootFinished: false,
+    backgroundLoaded: false,
+    lastVisit: ''
+  };
+
+  canvas: any;
+  c: ?HTMLDivElement;
 
   async componentDidMount() {
     try {
@@ -97,23 +108,18 @@ class App extends Component {
 
   // Get main site data
   async fetchSiteData() {
-    const { calls } = dataJson;
     try {
       const val = await db.getCompletedItems();
       const date = await db.getLastVisit();
       this.setState({
-        data: {
-          calls: calls.map(c => {
-            return Object.assign({}, c, {
-              hasCalled: val.includes(c.slug)
-            });
-          })
-        },
+        data: data.map(c =>
+          Object.assign({}, c, { hasCalled: val.includes(c.slug) })
+        ),
         lastVisit: date
       });
     } catch (err) {
       this.setState({
-        data: dataJson,
+        data: data,
         lastVisit: new Date()
       });
     }
@@ -156,7 +162,7 @@ class App extends Component {
     const self = this;
     return function() {
       if (self.canvas) {
-        self.canvas.swapTexture(item.image);
+        self.canvas.swapTexture(item.slug);
         tickAudio.play();
       }
     };
@@ -169,7 +175,7 @@ class App extends Component {
 
   // change shader background
   swapTexture = item => {
-    if (this.canvas) this.canvas.swapTexture(item.image);
+    if (this.canvas) this.canvas.swapTexture(item.slug);
   };
 
   // Glitch the shader
@@ -184,14 +190,13 @@ class App extends Component {
 
   flagAsComplete = slug => {
     this.setState({
-      data: {
-        calls: this.state.data.calls.map(d => {
-          if (d.slug === slug) {
-            return Object.assign({}, d, { hasCalled: true });
-          }
-          return d;
-        })
-      }
+      data: this.state.data.map(d => {
+        if (d.slug === slug) {
+          return Object.assign({}, d, { hasCalled: true });
+        }
+
+        return d;
+      })
     });
   };
 
@@ -212,6 +217,8 @@ class App extends Component {
       [styles.BackgroundLoaded]: this.state.backgroundLoaded
     });
 
+    const cleanedData = data.filter(d => d.id !== 0);
+
     return (
       <div className={styles.App}>
         <Nav activeStory={activeStory} />
@@ -225,21 +232,20 @@ class App extends Component {
           path="/"
           render={() => {
             return (
-              <Fragment>
+              <React.Fragment>
                 <Boot
-                  data={data}
                   onFinishedBoot={this.onFinishedBoot}
                   bootFinished={bootFinished}
                 />
 
                 <Dashboard
                   bootFinished={bootFinished}
-                  data={data}
+                  data={cleanedData}
                   handleMouseEnter={this.handleMouseEnter}
                   lastVisit={lastVisit}
                   setFlash={this.setFlash}
                 />
-              </Fragment>
+              </React.Fragment>
             );
           }}
         />

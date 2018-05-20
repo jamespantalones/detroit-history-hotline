@@ -3,8 +3,8 @@ import { Howl } from 'howler';
 import { Redirect } from 'react-router-dom';
 
 import * as db from '../../utils/db';
-import { renderMarkdown, getAudio } from '../../utils';
-import data from '../../data/data.json';
+import { renderMarkdown } from '../../utils';
+import data from '../../data';
 import config from '../../config';
 
 import styles from './Story.css';
@@ -46,7 +46,7 @@ export default class Story extends Component {
     this.props.setFlash();
 
     // find person in data
-    const target = data.calls.find(p => p.slug === person);
+    const target = data.find(p => p.slug === person);
 
     // set state based on person data, and run init on callback
     if (target) {
@@ -91,11 +91,9 @@ export default class Story extends Component {
     // make sure we are using right image texture
     this.props.swapTexture(this.state.story);
 
-    const audioFile = getAudio(this.state.story.id);
-
     // set up new audio
     this.audio = new Howl({
-      src: [config.cdn + audioFile.src],
+      src: [config.cdn + this.state.story.slug + '.mp3'],
       volume: 0.5,
       onload: this.getMetaData,
       onpause: this.onPause,
