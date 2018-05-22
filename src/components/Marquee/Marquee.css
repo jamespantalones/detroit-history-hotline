@@ -19,10 +19,9 @@
 .Marquee {
   display: inline-block;
   position: absolute;
-  top: 50%;
+
   left: 0;
   margin: 0;
-  transform: translate3d(0, -50%, 0);
   user-select: none;
   p {
     display: inline-block;

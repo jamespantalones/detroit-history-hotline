@@ -8,6 +8,8 @@ import React, { Component } from 'react';
 import { deferWork, renderMarkdown } from '../../utils';
 import styles from './Marquee.css';
 
+const MARQUEE_SPEED = 2;
+
 export default class Marquee extends Component {
   constructor() {
     super();
@@ -89,7 +91,10 @@ export default class Marquee extends Component {
     if (this.props.ltr === true) {
       this.setState(
         {
-          x: this.state.x >= this.state.innerWidth ? 0 : this.state.x + 1
+          x:
+            this.state.x >= this.state.innerWidth
+              ? 0
+              : this.state.x + MARQUEE_SPEED
         },
         () => {
           this.animation = requestAnimationFrame(this.animate);
@@ -98,7 +103,10 @@ export default class Marquee extends Component {
     } else {
       this.setState(
         {
-          x: this.state.x <= -this.state.innerWidth ? 0 : this.state.x - 1
+          x:
+            this.state.x <= -this.state.innerWidth
+              ? 0
+              : this.state.x - MARQUEE_SPEED
         },
         () => {
           this.animation = requestAnimationFrame(this.animate);
