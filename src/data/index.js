@@ -24,7 +24,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/dj_minx.jpg'),
     slug: 'dj_minx',
-    text: ''
+    text: 'DJ Minx recalls her first visit to the Music Institute'
   },
 
   {
@@ -33,7 +33,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/derrick_may.jpg'),
     slug: 'derrick_may',
-    text: ''
+    text: 'Derrick May on meeting Juan Atkins and Kevin Saunderson'
   },
 
   {
@@ -42,7 +42,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/jeff_mills.jpg'),
     slug: 'jeff_mills',
-    text: ''
+    text: 'Jeff Mills on industrial music mixing with techno'
   },
 
   {
@@ -51,7 +51,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/carl_craig.jpg'),
     slug: 'carl_craig',
-    text: ''
+    text: 'Carl Craig talks rejecting the Detroit’s musical cliches'
   },
 
   {
@@ -60,7 +60,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/robert_hood.jpg'),
     slug: 'robert_hood',
-    text: ''
+    text: 'Robert Hood on Ken Collier, the godfather of Detroit house music'
   },
 
   {
@@ -69,7 +69,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/theo_parrish.jpg'),
     slug: 'theo_parrish',
-    text: ''
+    text: 'Theo Parrish reflects on Detroit’s unique producers'
   },
 
   {
@@ -78,7 +78,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/dj_holographic.jpg'),
     slug: 'dj_holographic',
-    text: ''
+    text: 'DJ Holographic remembers her first visit to Movement Festival'
   },
 
   {
@@ -87,7 +87,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/leon_ware.jpg'),
     slug: 'leon_ware',
-    text: ''
+    text: 'Leon Ware talks about the vast talent of Detroit musicians'
   },
 
   {
@@ -96,7 +96,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/waajeed.jpg'),
     slug: 'waajeed',
-    text: ''
+    text: 'Waajeed on about the purity of Detroit’s musical integrity'
   },
   {
     id: 19,
@@ -104,7 +104,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/erika.jpg'),
     slug: 'erika',
-    text: ''
+    text: 'Erika on the influence of Drexciya'
   },
   {
     id: 20,
@@ -112,15 +112,16 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/amp_fiddler.jpg'),
     slug: 'amp_fiddler',
-    text: ''
+    text: 'Amp Fiddler remembers recording with Parliament-Funkadelic'
   },
   {
     id: 21,
-    name: 'Stacey Hotwaxx Hale',
+    name: 'Stacey “Hotwaxx” Hale',
     hasCalled: false,
     image: require('../images/stacey_hotwaxx_hale.jpg'),
     slug: 'stacey_hotwaxx_hale',
-    text: ''
+    text:
+      'Stacey “Hotwaxx” Hale talks about the first time she heard True Disco at the Chessmate'
   }
 ];
 

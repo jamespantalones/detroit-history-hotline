@@ -37,6 +37,14 @@
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  max-width: 740px;
+  font-family: 'VT323', 'menlo', monospace;
+  @media (min-width: 1020px) {
+    font-size: 22px;
+  }
+  @media (min-width: 1600px) {
+    font-size: 28px;
+  }
 }
 
 .Stats {
