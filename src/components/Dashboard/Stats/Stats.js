@@ -57,7 +57,7 @@ export default class Stats extends Component {
             <p>{this.state.time}</p>
             <p>
               <span className={styles.Yellow}>Last on:</span>{' '}
-              {lastVisit ? format(lastVisit, 'MM/DD/YY') : ''}
+              {lastVisit ? format(lastVisit, 'HH:mm:ss    MM/DD/YY') : ''}
             </p>
           </div>
 
