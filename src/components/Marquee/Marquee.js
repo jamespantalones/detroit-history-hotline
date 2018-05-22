@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { deferWork, renderMarkdown } from '../../utils';
 import styles from './Marquee.css';
 
-const MARQUEE_SPEED = 2;
+const MARQUEE_SPEED = 1.25;
 
 export default class Marquee extends Component {
   constructor() {

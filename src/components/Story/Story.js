@@ -8,6 +8,8 @@ import data from '../../data';
 import config from '../../config';
 
 import styles from './Story.css';
+import playButton from '../../images/icons/play.svg';
+import pauseButton from '../../images/icons/pause.svg';
 
 export default class Story extends Component {
   constructor() {
@@ -19,6 +21,7 @@ export default class Story extends Component {
       shouldRedirect: false,
       mousedown: false,
       rect: { width: 0, left: 0, right: 0 },
+      audioId: 0,
       story: {
         id: 0,
         name: '',
@@ -29,6 +32,8 @@ export default class Story extends Component {
         text: ''
       }
     };
+
+    this._frameId = null;
     this.el = null;
     this.loop = null;
     this.timer = null;
@@ -63,24 +68,22 @@ export default class Story extends Component {
   // On unount, destroy audio
   //
   componentWillUnmount() {
-    if (this.audio !== null) {
-      this.audio.stop();
-      this.audio.unload();
-    }
-
-    if (this.loop !== null) {
-      cancelAnimationFrame(this.loop);
-      this.loop = null;
-    }
+    this.stopLoop();
 
     if (this.timer !== null) {
       clearTimeout(this.timer);
       this.timer = null;
     }
+    if (this.audio !== null) {
+      //this.audio.stop();
+      //this.audio.unload();
+    }
+
     this.setState({
       duration: 0,
       currentTime: 0,
-      mousedown: false
+      mousedown: false,
+      playing: false
     });
   }
 
@@ -104,14 +107,14 @@ export default class Story extends Component {
   }
 
   getMetaData = () => {
-    this.setState({
-      duration: this.audio.duration().toFixed(2)
-    });
-    this.audio.play();
+    this.setState({ duration: this.audio.duration().toFixed(2) });
+    const audioId = this.audio.play();
+    this.renderMeta();
+    this.setState({ audioId });
   };
 
   onPlay = () => {
-    this.renderMeta();
+    this.setState({ playing: true });
   };
 
   onEnd = async () => {
@@ -132,17 +135,36 @@ export default class Story extends Component {
     // save item in localstorage
   };
 
-  onPause = () => {};
+  onPause = () => this.setState({ playing: false });
 
+  // Get duration, etc of file
   renderMeta = () => {
-    this.loop = requestAnimationFrame(this.renderMeta);
-    this.setState({
-      currentTime: this.audio.seek()
-    });
+    if (this.audio) {
+      this.setState(
+        {
+          currentTime: this.audio ? this.audio.seek() : 0
+        },
+        () => {
+          this._frameId = window.requestAnimationFrame(this.renderMeta);
+        }
+      );
+    }
   };
 
+  stopLoop() {
+    window.cancelAnimationFrame(this._frameId);
+  }
+
+  startLoop() {
+    if (!this._frameId) {
+      this._frameId = window.requestAnimationFrame(this.renderMeta);
+    }
+  }
+
   handleChange = ev => {
-    this.audio.seek(ev.target.value);
+    if (this.audio) {
+      this.audio.seek(ev.target.value);
+    }
   };
 
   onMouseDown = ev => {
@@ -180,22 +202,50 @@ export default class Story extends Component {
     this.audio.seek(percent * this.state.duration);
   }
 
+  // Clicks on waveform
   handleClick = ev => {
     ev.preventDefault();
     this.seek(ev);
+  };
+
+  // clicks on play/pause
+  handlePlayClick = () => {
+    const { audioId, playing } = this.state;
+    if (this.audio && audioId) {
+      if (playing === true) {
+        this.audio.pause(audioId);
+      } else {
+        this.audio.play(audioId);
+      }
+    }
   };
 
   render() {
     if (this.state.shouldRedirect === true) {
       return <Redirect to="/" />;
     }
-
     return (
       <div className={styles.Story}>
-        <div
-          className={styles.Body}
-          dangerouslySetInnerHTML={renderMarkdown(this.state.story.text)}
-        />
+        <div className={styles.Body}>
+          <div
+            dangerouslySetInnerHTML={renderMarkdown(this.state.story.text)}
+          />
+          <div className={styles.PlayButtons}>
+            <img
+              src={pauseButton}
+              style={{ display: this.state.playing ? 'block' : 'none' }}
+              alt="Pause"
+              onClick={this.handlePlayClick}
+            />
+            <img
+              src={playButton}
+              style={{ display: !this.state.playing ? 'block' : 'none' }}
+              alt="Play"
+              onClick={this.handlePlayClick}
+            />
+          </div>
+        </div>
+
         <div className={styles.Stats}>
           <div
             className={styles.Waveform}

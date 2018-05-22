@@ -1,3 +1,15 @@
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .Stats {
   text-transform: uppercase;
   position: relative;
@@ -123,15 +135,25 @@
   p {
     font-weight: bold;
     color: yellow;
-    max-width: 150px;
+    max-width: 300px;
     text-align: right;
-    font-size: 12px;
+    font-size: 14px;
     @media (min-width: 760px) {
       max-width: 300px;
-      font-size: 16px;
+      font-size: 18px;
+    }
+    @media (min-width: 1020px) {
+      font-size: 18px;
+      max-width: 500px;
     }
     @media (min-width: 1600px) {
       max-width: 500px;
+      font-size: 22px;
+    }
+
+    span {
+      color: red;
+      animation: blink 0.5s steps(1) infinite;
     }
   }
 }
