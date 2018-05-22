@@ -47,13 +47,9 @@
       -webkit-tap-highglight-color: transparent;
     }
   }
-  @media (min-width: 1020px) {
-    p {
-      font-size: 22px;
-    }
-  }
-  @media (min-width: 1600px) {
-    p {
+
+  p.Hed {
+    @media (min-width: 1020px) {
       font-size: 28px;
     }
   }

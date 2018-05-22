@@ -75,8 +75,8 @@ export default class Story extends Component {
       this.timer = null;
     }
     if (this.audio !== null) {
-      //this.audio.stop();
-      //this.audio.unload();
+      this.audio.stop();
+      this.audio.unload();
     }
 
     this.setState({

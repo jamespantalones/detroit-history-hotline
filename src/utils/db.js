@@ -7,7 +7,6 @@
 // @flow
 import localForage from 'localforage';
 import { isSameDay } from 'date-fns';
-import type { ItemData } from '../types';
 
 //-----------------------------------------
 // Save new visit
@@ -57,11 +56,14 @@ export const getLastVisit = (): Promise<Date> => {
   return new Promise(async (resolve, reject) => {
     try {
       const val = await localForage.getItem('ds_visits');
-      if (val.length) {
-        return resolve(val[val.length - 1]);
-      }
 
-      return resolve(new Date());
+      if (val && val.length > 1) {
+        return resolve(val[val.length - 2]);
+      } else if (val && val.length <= 1) {
+        return resolve(val[val.length - 1]);
+      } else {
+        return resolve(new Date());
+      }
     } catch (err) {
       reject(err);
     }
