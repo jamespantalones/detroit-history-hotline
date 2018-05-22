@@ -4,7 +4,7 @@
   width: calc(100% - 20px);
   z-index: 9;
   margin: 10px 10px;
-  -webkit-filter: blur(1px);
+  /* -webkit-filter: blur(1px); */
   h1 {
     font-size: 22px;
     background: black;

@@ -6,7 +6,7 @@
   right: 0;
   background: rgba(0, 0, 0, 0.3);
   font-family: 'VT323', monospace;
-  -webkit-filter: blur(1px);
+  /* -webkit-filter: blur(1px); */
 
   ul {
     position: absolute;

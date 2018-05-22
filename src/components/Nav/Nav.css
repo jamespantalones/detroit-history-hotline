@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   text-transform: none;
-  -webkit-filter: blur(1px);
+  /* -webkit-filter: blur(1px); */
   user-select: none;
 }
 

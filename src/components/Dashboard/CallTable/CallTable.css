@@ -5,7 +5,8 @@
   position: relative;
   background: transparent;
   margin-top: 0px;
-  -webkit-filter: blur(1px);
+  opacity: 0.76;
+  /* -webkit-filter: blur(1px); */
   h1 {
     font-size: 14px;
     background: black;
@@ -39,7 +40,7 @@
   height: 500px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 200px;
+  padding-bottom: 50px;
 }
 
 .Row {

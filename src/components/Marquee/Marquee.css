@@ -7,7 +7,7 @@
   border-top: 1px solid black;
   text-transform: uppercase;
   background: black;
-  -webkit-filter: blur(1px);
+  /* -webkit-filter: blur(1px); */
 }
 
 .Inner {
