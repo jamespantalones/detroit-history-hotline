@@ -106,11 +106,12 @@ export default class Story extends Component {
     this.props.setGlobalActiveStory(this.state.story);
   }
 
+  //-----------------------------------------
+  // Init
+  //
   getMetaData = () => {
     this.setState({ duration: this.audio.duration().toFixed(2) });
-    const audioId = this.audio.play();
     this.renderMeta();
-    this.setState({ audioId });
   };
 
   onPlay = () => {
@@ -211,11 +212,16 @@ export default class Story extends Component {
   // clicks on play/pause
   handlePlayClick = () => {
     const { audioId, playing } = this.state;
-    if (this.audio && audioId) {
+    if (this.audio) {
       if (playing === true) {
         this.audio.pause(audioId);
       } else {
-        this.audio.play(audioId);
+        if (audioId) {
+          this.audio.play(audioId);
+        } else {
+          const a = this.audio.play();
+          this.setState({ audioId: a });
+        }
       }
     }
   };
