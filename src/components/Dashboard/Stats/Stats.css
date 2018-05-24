@@ -45,6 +45,9 @@
       padding: 0;
       user-select: none;
       -webkit-tap-highglight-color: transparent;
+      @media (min-width: 760px) {
+        display: inline-block;
+      }
     }
   }
 

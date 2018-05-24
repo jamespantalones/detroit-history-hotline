@@ -53,12 +53,12 @@ const fragment = `
 
     // offset colors a bit
     if (u_flash > 0.0){
-      col.g = col.g * sin(u_flash * 5000.0) - cos(u_time);
+      col.g = col.g * sin(u_flash * 50000.0) - cos(u_time);
       col.xyz = floor(col.xyz * pal) / pal.xyz;
-      gl_FragColor = vec4(col, 1.0);
+      gl_FragColor = vec4(col - 0.5, 1.0);
     }
     else {
-      gl_FragColor = vec4(col - 0.25, 1.0);
+      gl_FragColor = vec4(col - 0.05, 1.0);
     }
     
     

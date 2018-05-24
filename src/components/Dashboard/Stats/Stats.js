@@ -74,7 +74,7 @@ export default class Stats extends Component {
             <a href="tel:+13139864606">1-313-986-4606</a>
           </h1>
           <p>
-            <span>Call Now!</span> for stories on your phone!
+            Listen On Your Phone <span>Call Now!</span>
           </p>
         </div>
       </div>

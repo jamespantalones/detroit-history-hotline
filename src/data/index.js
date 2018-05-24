@@ -51,7 +51,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/carl_craig.jpg'),
     slug: 'carl_craig',
-    text: 'Carl Craig talks rejecting the Detroit’s musical cliches'
+    text: 'Carl Craig talks rejecting Detroit’s musical cliches'
   },
 
   {
@@ -96,7 +96,7 @@ const data: Array<ItemData> = [
     hasCalled: false,
     image: require('../images/waajeed.jpg'),
     slug: 'waajeed',
-    text: 'Waajeed on about the purity of Detroit’s musical integrity'
+    text: 'Waajeed on the purity of Detroit’s musical integrity'
   },
   {
     id: 19,
